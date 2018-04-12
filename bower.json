@@ -1,0 +1,22 @@
+{
+  "name": "financial_planning",
+  "description": "bower packages for financial planning",
+  "main": "index.php",
+  "authors": [
+    "Sherwin Rhey Condez"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.1.0",
+    "fontawesome": "^5.0.10"
+  }
+}
