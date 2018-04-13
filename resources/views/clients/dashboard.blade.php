@@ -33,7 +33,15 @@
                 <span class="text-primary">Number of Years to Invest:</span> {{ $client->retirement->retirement_age - $client->retirement->current_age}}
               </div>
               <div class="col">
-                <span class="text-primary">Projected Monthly Income Needed:</span> {{ number_format($client->retirement->monthly_income*(pow((1+$client->retirement->inflation_rate),$client->retirement->retirement_age - $client->retirement->current_age )), 2) }}
+                <span class="text-primary">Projected Monthly Income Needed:</span> {{ number_format($projected_monthly = $client->retirement->monthly_income*(pow((1+($client->retirement->inflation_rate/100)),$client->retirement->retirement_age - $client->retirement->current_age )), 2) }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <span class="text-primary">Annual Equivalent:</span> {{ number_format($annual_value = $projected_monthly*12, 2) }}
+              </div>
+              <div class="col">
+                <span class="text-primary">Projected Monthly Income Needed:</span> {{ number_format($annual_value/0.1, 2) }}
               </div>
             </div>
           @else
