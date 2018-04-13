@@ -12,7 +12,30 @@
         </div>
         <div class="card-body">
           @if($client->retirement)
-
+            <div class="row">
+              <div class="col">
+                <span class="text-primary">Retirement Monthly Income:</span> {{ number_format($client->retirement->monthly_income,2) }}
+              </div>
+              <div class="col">
+                <span class="text-primary">Inflation Rate:</span> {{ $client->retirement->inflation_rate }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <span class="text-primary">Current Age:</span> {{ $client->retirement->current_age }}
+              </div>
+              <div class="col">
+                <span class="text-primary">Retirement Age:</span> {{ $client->retirement->retirement_age }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <span class="text-primary">Number of Years to Invest:</span> {{ $client->retirement->retirement_age - $client->retirement->current_age}}
+              </div>
+              <div class="col">
+                <span class="text-primary">Projected Monthly Income Needed:</span> {{ number_format($client->retirement->monthly_income*(pow((1+$client->retirement->inflation_rate),$client->retirement->retirement_age - $client->retirement->current_age )), 2) }}
+              </div>
+            </div>
           @else
             <p class="text-center">You have no retirement plan record yet.</p>
           @endif
