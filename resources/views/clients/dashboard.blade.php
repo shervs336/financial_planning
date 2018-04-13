@@ -55,7 +55,7 @@
           Educational Fund
         </div>
         <div class="card-body">
-          @if($client->education)
+          @if($client->retirement)
 
           @else
             <p class="text-center">You have no retirement plan record yet.</p>
@@ -70,7 +70,7 @@
           Accumulation Fund
         </div>
         <div class="card-body">
-          @if($client->accumulation)
+          @if($client->retirement)
 
           @else
             <p class="text-center">You have no retirement plan record yet.</p>
