@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'DashboardController@index')->name('dashboard');
+Route::resource('/clients', 'ClientsController');
+Route::get('/clients/{client}/dashboard', 'ClientsController@dashboard')->name('clients.dashboard');
+
+Route::resource('/clients/{client}/retirement', 'RetirementController');
+Route::resource('/clients/{client}/education', 'EducationController');
+Route::resource('/clients/{client}/accumulation', 'AccumulationController');
