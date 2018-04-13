@@ -6,6 +6,7 @@ use App\User;
 use App\Retirement;
 use Illuminate\Http\Request;
 use Validator;
+use DB;
 
 class RetirementController extends Controller
 {
@@ -113,10 +114,10 @@ class RetirementController extends Controller
         }
 
         $retirement = Retirement::where('user_id', $client->id)->first()->get();
-        $retirement = $retirement[0];
 
-        $retirement->current_age = $request->current_age;
-        $retirement->save();
+        DB::table('retirements')
+            ->where('user_id', $client->id)
+            ->update($request->except('_token', '_method'));
 
         flash()->success("Retirement record successfully updated");
 
