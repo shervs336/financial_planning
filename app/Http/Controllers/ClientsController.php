@@ -6,6 +6,7 @@ use App\User;
 
 use Illuminate\Http\Request;
 use Validator;
+use Auth;
 
 class ClientsController extends Controller
 {
@@ -54,6 +55,11 @@ class ClientsController extends Controller
             ->withErrors($validator)
             ->withInput();
         }
+
+        $this->log([
+          'user_id' => Auth::user()->id,
+          'log' => 'New Client - '.$request->name.' has successfully created.'
+        ]);
 
         User::create($request->input());
 
@@ -108,9 +114,49 @@ class ClientsController extends Controller
             ->withInput();
         }
 
+
+
+
+        $this->log([
+          'user_id' => Auth::user()->id,
+          'log' => 'Removed Client - '.$client->name.' successfully deleted.'
+        ]);
+
         if(!$request->password){
+          $diff = array_diff($request->except('_token', '_method', 'password', 'password_confirmation'), $clientArray = $client->toArray());
+
+          if($diff){
+            $log = 'Client Update - '. $client->name . ' successfully updated <ul>';
+            foreach(array_keys($diff) as $key){
+              $log .= '<li>'.$client->$key.' changes to '.$request->$key.'</li>';
+            }
+            $log .= '</ul>';
+
+            $this->log([
+              'user_id' => Auth::user()->id,
+              'log' => $log
+            ]);
+          }
+
           $client->update($request->except('password'));
         } else {
+
+          $diff = array_diff($request->except('_token', '_method', 'password_confirmation'), $clientArray = $client->toArray());
+
+          if($diff){
+            $log = 'Client Update - '. $client->name . 'successfully updated <ul>';
+            foreach(array_keys($diff) as $key){
+              $log .= '<li>'.$client->$key.' changes to '.$request->$key.'</li>';
+            }
+            $log .= '</ul>';
+
+            $this->log([
+              'user_id' => Auth::user()->id,
+              'log' => $log
+            ]);
+          }
+
+
           $data = $request->input();
           $data['password'] = bcrypt($request->password);
           $client->update($data);
@@ -129,6 +175,11 @@ class ClientsController extends Controller
      */
     public function destroy(User $client)
     {
+        $this->log([
+          'user_id' => Auth::user()->id,
+          'log' => 'Removed Client - '.$client->name.' successfully deleted.'
+        ]);
+
         $client->delete();
 
         flash()->success('Client successfully deleted!');
