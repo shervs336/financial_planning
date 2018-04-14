@@ -2,7 +2,7 @@
 
 @section('content')
   <h1>
-    Create - Retirement for <span class="text-primary">{{ $client->name }}</span>
+    Edit - Fund Accumulation for <span class="text-primary">{{ $client->name }}</span>
   </h1>
 
   <hr />
@@ -19,8 +19,8 @@
     </div>
   @endif
 
-  {{ Form::open(['route' => ['retirement.store', $client->id], 'method' => 'post']) }}
-    @include('retirement.fields')
+  {{ Form::model($accumulation, ['route' => ['accumulation.update', 'client' => $client->id, 'accumulation' => $client->accumulation->id], 'method' => 'put']) }}
+    @include('accumulation.fields')
   {{ Form::close() }}
 
 @endsection

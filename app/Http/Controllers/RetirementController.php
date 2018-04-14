@@ -6,7 +6,6 @@ use App\User;
 use App\Retirement;
 use Illuminate\Http\Request;
 use Validator;
-use DB;
 
 class RetirementController extends Controller
 {
@@ -81,10 +80,8 @@ class RetirementController extends Controller
      * @param  \App\Retirement  $retirement
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $client, Request $request)
+    public function edit(User $client, Retirement $retirement)
     {
-        $retirement = $client->retirement;
-
         return view('retirement.edit', compact('client', 'retirement'));
     }
 
@@ -95,7 +92,7 @@ class RetirementController extends Controller
      * @param  \App\Retirement  $retirement
      * @return \Illuminate\Http\Response
      */
-    public function update(User $client, Request $request)
+    public function update(User $client, Retirement $retirement, Request $request)
     {
         $validator = Validator::make($request->all(), [
             'monthly_income' => 'required|numeric',
@@ -108,20 +105,16 @@ class RetirementController extends Controller
         {
           flash()->error("There are errors in your inputs");
 
-          return redirect(route('retirement.edit', $client->id))
+          return redirect(route('retirement.edit', $retirement->user_id))
             ->withErrors($validator)
             ->withInput();
         }
 
-        $retirement = Retirement::where('user_id', $client->id)->first()->get();
-
-        DB::table('retirements')
-            ->where('user_id', $client->id)
-            ->update($request->except('_token', '_method'));
+        $retirement->update($request->input());
 
         flash()->success("Retirement record successfully updated");
 
-        return redirect(route('clients.dashboard', $client->id));
+        return redirect(route('clients.dashboard', $retirement->user_id));
     }
 
     /**

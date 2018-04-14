@@ -2,8 +2,10 @@
 
 @section('content')
   <h1>
-    Clients - Edit Client
+    Edit - Retirement for <span class="text-primary">{{ $client->name }}</span>
   </h1>
+
+  <hr />
 
   @include('flash::message')
 
@@ -17,7 +19,7 @@
     </div>
   @endif
 
-  {{ Form::model($retirement, ['route' => ['retirement.update', 'client' => $client->id, 'retirement' => $client->id], 'method' => 'put']) }}
+  {{ Form::model($retirement, ['route' => ['retirement.update', 'client' => $client->id, 'retirement' => $retirement->id], 'method' => 'put']) }}
     @include('retirement.fields')
   {{ Form::close() }}
 

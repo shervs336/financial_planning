@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Accumulation;
 use Illuminate\Http\Request;
+use Validator;
 
 class AccumulationController extends Controller
 {
@@ -14,7 +16,7 @@ class AccumulationController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -22,9 +24,9 @@ class AccumulationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $client)
     {
-        //
+        return view('accumulation.create', compact('client'));
     }
 
     /**
@@ -33,9 +35,36 @@ class AccumulationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(User $client, Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'annual_increase_savings_yr_1_5' => 'required|numeric',
+            'annual_increase_savings_yr_6_10' => 'required|numeric',
+            'annual_increase_savings_yr_11_up' => 'required|numeric',
+            'annual_return_investment_yr_1_5' => 'required|numeric',
+            'annual_return_investment_yr_6_10' => 'required|numeric',
+            'annual_return_investment_yr_11_up' => 'required|numeric',
+            'starting_amount_monthly' => 'required|numeric',
+            'start_up_fund' => 'required|numeric'
+        ]);
+
+        if($validator->fails())
+        {
+          flash()->error("There are errors in your inputs");
+
+          return redirect(route('accumulation.create', $client->id))
+            ->withErrors($validator)
+            ->withInput();
+        }
+
+        $data = $request->input();
+        $data['user_id'] = $client->id;
+
+        Accumulation::create($data);
+
+        flash()->success("Accumulation record successfully added");
+
+        return redirect(route('clients.dashboard', $client->id));
     }
 
     /**
@@ -55,9 +84,9 @@ class AccumulationController extends Controller
      * @param  \App\Accumulation  $accumulation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Accumulation $accumulation)
+    public function edit(User $client, Accumulation $accumulation)
     {
-        //
+        return view('accumulation.edit', compact('client', 'accumulation'));
     }
 
     /**
@@ -67,9 +96,33 @@ class AccumulationController extends Controller
      * @param  \App\Accumulation  $accumulation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Accumulation $accumulation)
+    public function update(User $client, Accumulation $accumulation, Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'annual_increase_savings_yr_1_5' => 'required|numeric',
+            'annual_increase_savings_yr_6_10' => 'required|numeric',
+            'annual_increase_savings_yr_11_up' => 'required|numeric',
+            'annual_return_investment_yr_1_5' => 'required|numeric',
+            'annual_return_investment_yr_6_10' => 'required|numeric',
+            'annual_return_investment_yr_11_up' => 'required|numeric',
+            'starting_amount_monthly' => 'required|numeric',
+            'start_up_fund' => 'required|numeric'
+        ]);
+
+        if($validator->fails())
+        {
+          flash()->error("There are errors in your inputs");
+
+          return redirect(route('accumulation.edit', $accumulation->user_id))
+            ->withErrors($validator)
+            ->withInput();
+        }
+
+        $accumulation->update($request->input());
+
+        flash()->success("Retirement record successfully updated");
+
+        return redirect(route('clients.dashboard', $accumulation->user_id));
     }
 
     /**

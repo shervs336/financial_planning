@@ -5,6 +5,8 @@
     Retirement for <span class="text-primary">{{ $client->name }}</span>
   </h1>
 
+  <hr />
+
   @include('flash::message')
 
   @if($errors->all())

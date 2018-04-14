@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Education;
 use Illuminate\Http\Request;
+use Validator;
 
 class EducationController extends Controller
 {

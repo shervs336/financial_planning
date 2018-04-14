@@ -14,10 +14,11 @@ class CreateRetirementsTable extends Migration
     public function up()
     {
         Schema::create('retirements', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->decimal('monthly_income', 12, 2);
-            $table->decimal('inflation_rate', 12, 2);
+            $table->decimal('monthly_income', 20, 2);
+            $table->decimal('inflation_rate', 20, 2);
             $table->integer('current_age');
             $table->integer('retirement_age');
             $table->timestamps();

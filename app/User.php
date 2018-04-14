@@ -35,7 +35,7 @@ class User extends Authenticatable
 
     public function education()
     {
-      return $this->hasOne('App\Education');
+      return $this->hasMany('App\Education');
     }
 
     public function retirement()

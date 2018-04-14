@@ -5,6 +5,8 @@
     Clients - Edit Client
   </h1>
 
+  <hr />
+
   @include('flash::message')
 
   @if($errors->all())

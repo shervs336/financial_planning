@@ -6,6 +6,8 @@
     <a href="{{ route('clients.create') }}" class="btn btn-success float-right">Add Client</a>
   </h1>
 
+  <hr />
+
   @include('flash::message')
 
   @include('clients.table')
