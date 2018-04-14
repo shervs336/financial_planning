@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Accumulation extends Model
 {
+  protected $table = "accumulations";
+
   protected $guarded = [];
 
   public function client()
