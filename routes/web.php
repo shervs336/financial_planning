@@ -20,3 +20,4 @@ Route::get('/clients/{client}/dashboard', 'ClientsController@dashboard')->name('
 Route::resource('/clients/{client}/retirement', 'RetirementController');
 Route::resource('/clients/{client}/education', 'EducationController');
 Route::resource('/clients/{client}/accumulation', 'AccumulationController');
+Route::resource('/clients/{client}/emergency_fund', 'EmergencyFundController');

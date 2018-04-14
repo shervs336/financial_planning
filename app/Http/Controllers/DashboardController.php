@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Auth;
 
 class DashboardController extends Controller
 {
@@ -24,6 +25,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->role != "admin")
+          return redirect(route('clients.dashboard', Auth::user()->id));
+
         $clients = User::where('role', 'client');
         return view('dashboard', compact('clients'));
     }

@@ -10,6 +10,8 @@ class Retirement extends Model
 
     protected $guarded = [];
 
+    protected $dates = ['created_at', 'updated_at'];
+
     public function client()
     {
       return $this->belongsTo('App\User');

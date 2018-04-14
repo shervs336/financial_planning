@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
       return $this->hasOne('App\Accumulation');
     }
+
+    public function emergency_fund()
+    {
+      return $this->hasOne('App\EmergencyFund');
+    }
 }

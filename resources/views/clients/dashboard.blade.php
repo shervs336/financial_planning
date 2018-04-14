@@ -13,4 +13,6 @@
 
   @include('clients.accumulation')
 
+  @include('clients.emergency_funds')
+
 @endsection
