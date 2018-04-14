@@ -2,7 +2,7 @@
 
 @section('content')
   <h1>
-    Clients - Edit Client
+    Edit - Education for <span class="text-primary">{{ $client->name }}</span>
   </h1>
 
   <hr />
@@ -19,8 +19,8 @@
     </div>
   @endif
 
-  {{ Form::model($retirement, ['route' => ['retirement.update', 'client' => $client->id, 'retirement' => $client->id], 'method' => 'put']) }}
-    @include('retirement.fields')
+  {{ Form::model($education, ['route' => ['education.update', 'client' => $client->id, 'education' => $client->education->id], 'method' => 'put']) }}
+    @include('education.fields')
   {{ Form::close() }}
 
 @endsection
