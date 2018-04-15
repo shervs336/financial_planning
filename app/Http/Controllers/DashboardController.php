@@ -35,6 +35,7 @@ class DashboardController extends Controller
         $retirements = Retirement::all()->count();
         $educations = Education::all()->count();
         $emergency_funds = EmergencyFund::all()->count();
+        dd(EmergencyFund::all());
         $accumulations = Accumulation::all()->count();
 
         if(Auth::user()->role != "admin")

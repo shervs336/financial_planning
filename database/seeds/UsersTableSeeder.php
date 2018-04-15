@@ -46,6 +46,15 @@ class UsersTableSeeder extends Seeder
               'updated_at' => $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = null)
             ]);
 
+            DB::table('emergency_funds')->insert([
+              'user_id' => $id,
+              'monthly_income' => floor($faker->numberBetween(10000,50000)),
+              'advisable_fund' => floor($faker->numberBetween(10000,200000)),
+              'allotment_of_income' => floor($faker->numberBetween(1,30)),
+              'created_at' => $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = null),
+              'updated_at' => $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = null)
+            ]);
+
             DB::table('accumulations')->insert([
               'user_id' => $id,
               'annual_increase_savings_yr_1_5' => floor($faker->numberBetween(1,10)),
