@@ -58,7 +58,7 @@ class EmergencyFundController extends Controller
 
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'New Emergency Fund Record for '.$request->name.' successfully created.'
+          'log' => 'New Emergency Fund Record for '.$client->name.' successfully created.'
         ]);
 
         EmergencyFund::create($data);

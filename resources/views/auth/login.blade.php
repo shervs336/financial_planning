@@ -54,15 +54,12 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+            <p class="text-center mt-3"><span class="rounded-circle bg-warning"><i class="fa fa-fw fa-lightbulb-o"></i></span> You can download the form <a href="{{ asset('forms/Survey-Form.pdf') }}" download>here</a> to apply and avail our services.</p>
         </div>
     </div>
 </div>
