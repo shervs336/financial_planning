@@ -5,7 +5,7 @@
       <span class="nav-link-text">Dashboard</span>
     </a>
   </li>
-  @if(Auth::user()->role == "admin")
+  @if(Auth::user()->getOriginal()['role'] == "admin")
   <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Clients">
     <a class="nav-link" href="{{ route('clients.index') }}">
       <i class="fa fa-fw fa-users"></i>

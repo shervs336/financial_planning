@@ -166,6 +166,12 @@ class ClientsController extends Controller
           if($diff){
             $log = 'Client Update - '. $client->name . 'successfully updated <ul>';
             foreach(array_keys($diff) as $key){
+              if($key == "password")
+              {
+                $log .= '<li>Update client password</li>';
+                continue;
+              }
+
               $log .= '<li>'.$client->$key.' changes to '.$request->$key.'</li>';
             }
             $log .= '</ul>';
@@ -179,7 +185,7 @@ class ClientsController extends Controller
 
           $data = $request->input();
           $data['password'] = bcrypt($request->password);
-          
+
           $client->update($data);
         }
 

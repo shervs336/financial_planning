@@ -22,9 +22,10 @@
     {{ Form::label('password_confirmation', 'Confirm Password') }}
     {{ Form::password('password_confirmation', ['class' => 'form-control']) }}
   </div>
+  @if(Auth::user()->getOriginal()['role'] == "client")
   <div class="form-group">
     {{ Form::label('birthdate', 'Birth Date: ') }}
-    {{ Form::text('birthdate', null, ['class' => 'form-control datepicker']) }}
+    {{ Form::text('birthdate', isset($client->birthdate) ? $client->birthdate->format('Y-m-d'): null, ['class' => 'form-control datepicker']) }}
   </div>
   <div class="form-group">
     {{ Form::label('contact_number', 'Contact Number: ') }}
@@ -34,4 +35,5 @@
     {{ Form::label('email_address', 'Email Address: ') }}
     {{ Form::text('email_address', null, ['class' => 'form-control']) }}
   </div>
+  @endif
   {{ Form::submit('Submit', ['class' => 'btn btn-success']) }}

@@ -16,8 +16,8 @@
       <i class="fa fa-fw fa-user"></i> {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}
     </a>
     <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-      <a href="{{ route('showProfile') }}" class="dropdown-item"
-          <i class="fa fa-user"></i> Profile
+      <a href="{{ route('showProfile', [Auth::user()->id]) }}" class="dropdown-item">
+          <i class="fa fa-edit"></i> Profile
       </a>
       <a href="{{ route('logout') }}" class="dropdown-item"
           onclick="event.preventDefault();
