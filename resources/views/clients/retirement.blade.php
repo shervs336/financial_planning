@@ -16,7 +16,7 @@
     @if($client->retirement)
       <div class="row">
         <div class="col-md-6">
-          <span class="text-primary">Retirement Monthly Income:</span> {{ number_format($client->retirement->monthly_income,2) }}
+          <span class="text-primary">Retirement Monthly Income:</span> ₱ {{ number_format($client->retirement->monthly_income,2) }}
         </div>
         <div class="col-md-6">
           <span class="text-primary">Inflation Rate:</span> {{ $client->retirement->inflation_rate }}
@@ -35,15 +35,15 @@
           <span class="text-primary">Number of Years to Invest:</span> {{ $client->retirement->retirement_age - $client->retirement->current_age}}
         </div>
         <div class="col-md-6">
-          <span class="text-primary">Projected Monthly Income Needed:</span> {{ number_format($projected_monthly = $client->retirement->monthly_income*(pow((1+($client->retirement->inflation_rate/100)),$client->retirement->retirement_age - $client->retirement->current_age )), 2) }}
+          <span class="text-primary">Projected Monthly Income Needed:</span> ₱ {{ number_format($projected_monthly = $client->retirement->monthly_income*(pow((1+($client->retirement->inflation_rate/100)),$client->retirement->retirement_age - $client->retirement->current_age )), 2) }}
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-          <span class="text-primary">Annual Equivalent:</span> {{ number_format($annual_value = $projected_monthly*12, 2) }}
+          <span class="text-primary">Annual Equivalent:</span> ₱ {{ number_format($annual_value = $projected_monthly*12, 2) }}
         </div>
         <div class="col-md-6">
-          <span class="text-primary">Total Retirement Fund Estimate:</span> {{ number_format($annual_value/0.1, 2) }}
+          <span class="text-primary">Total Retirement Fund Estimate:</span> ₱ {{ number_format($annual_value/0.1, 2) }}
         </div>
       </div>
     @else

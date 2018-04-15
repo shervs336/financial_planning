@@ -43,15 +43,15 @@
 
       <div class="row mb-2">
         <div class="col">
-          <span class="text-primary">Starting Amount (per month): </span> {{ number_format($client->accumulation->starting_amount_monthly,2) }}
+          <span class="text-primary">Starting Amount (per month): </span> ₱ {{ number_format($client->accumulation->starting_amount_monthly,2) }}
         </div>
         <div class="col">
-          <span class="text-primary">Annual Savings: </span> {{ number_format($annual_savings = $client->accumulation->starting_amount_monthly * 12, 2) }}
+          <span class="text-primary">Annual Savings: </span> ₱ {{ number_format($annual_savings = $client->accumulation->starting_amount_monthly * 12, 2) }}
         </div>
       </div>
       <div class="row mb-4">
         <div class="col">
-          <span class="text-primary">Start Up Fund: </span> {{ number_format($client->accumulation->start_up_fund, 2) }}
+          <span class="text-primary">Start Up Fund: </span> ₱ {{ number_format($client->accumulation->start_up_fund, 2) }}
         </div>
       </div>
 
@@ -102,11 +102,11 @@
             @endphp
             <tr>
               <td>{{ $i }}</td>
-              <td>{{ number_format($monthly_savings, 2) }}</td>
-              <td>{{ number_format($annual_savings, 2) }}</td>
-              <td>{{ number_format($beginning_balance, 2) }}</td>
-              <td>{{ number_format($annual_return, 2) }}</td>
-              <td>{{ number_format($ending_balance, 2) }}</td>
+              <td>₱ {{ number_format($monthly_savings, 2) }}</td>
+              <td>₱ {{ number_format($annual_savings, 2) }}</td>
+              <td>₱ {{ number_format($beginning_balance, 2) }}</td>
+              <td>₱ {{ number_format($annual_return, 2) }}</td>
+              <td>₱ {{ number_format($ending_balance, 2) }}</td>
             </tr>
             @endfor
           </tbody>

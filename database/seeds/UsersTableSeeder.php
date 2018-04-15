@@ -14,9 +14,14 @@ class UsersTableSeeder extends Seeder
     {
         for($i=1; $i <= 25; $i++){
           $id = DB::table('users')->insertGetId([
-            'name' => $faker->name,
+            'firstname' => $faker->firstName,
+            'middlename' => $faker->lastName,
+            'lastname' => $faker->lastName,
             'username' => $i == 1 ? 'admin' : $faker->username,
             'password' => bcrypt('password'),
+            'contact_number' => $faker->phoneNumber,
+            'email_address' => $faker->email,
+            'birthdate' => $faker->dateTimeThisCentury->format('Y-m-d'),
             'role' => $i == 1 ? 'admin' : 'client',
             'created_at' => $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = null),
             'updated_at' => $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = null)

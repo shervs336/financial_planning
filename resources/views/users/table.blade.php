@@ -14,7 +14,7 @@
           {!! Form::button('<i class="fa fa-fw fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => 'return confirm("Are you sure you want to delete this user")']) !!}
         {!! Form::close() !!}
       </td>
-      <td>{{ $user->name }}</td>
+      <td>{{ $user->firstname }} {{ $user->lastname }}</td>
     </tr>
   @empty
     <tr>

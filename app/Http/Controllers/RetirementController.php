@@ -111,7 +111,7 @@ class RetirementController extends Controller
         {
           flash()->error("There are errors in your inputs");
 
-          return redirect(route('retirement.edit', $retirement->user_id))
+          return redirect(route('retirement.edit', [$retirement->user_id, $retirement->id]))
             ->withErrors($validator)
             ->withInput();
         }

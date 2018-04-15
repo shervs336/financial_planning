@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <h1>Dashboard of <span class="text-primary">{{ $client->name }}</span></h1>
+  <h1>Dashboard of <span class="text-primary">{{ $client->firstname }} {{ $client->lastname }}</span></h1>
 
   <hr />
 

@@ -2,7 +2,7 @@
 
 @section('content')
   <h1>
-    Clients - Edit Client
+    Edit Profile Information
   </h1>
 
   <hr />
@@ -19,7 +19,7 @@
     </div>
   @endif
 
-  {{ Form::model($client, ['route' => ['clients.update', $client->id], 'method' => 'put', 'enctype' => 'multipart/form-data']) }}
+  {{ Form::model($client, ['route' => ['profile.update', $client->id], 'method' => 'put', 'enctype' => 'multipart/form-data']) }}
     @include('clients.fields')
   {{ Form::close() }}
 

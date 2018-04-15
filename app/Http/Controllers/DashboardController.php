@@ -136,4 +136,14 @@ class DashboardController extends Controller
 
       return redirect(route('dashboard'));
     }
+
+    public function showProfile()
+    {
+        return view('profile');
+    }
+
+    public function updateProfile()
+    {
+        
+    }
 }
