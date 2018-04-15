@@ -61,7 +61,7 @@ class ClientsController extends Controller
           'username' => 'required|string|unique:users',
           'password' => 'confirmed',
           'contact_number' => 'required',
-          'email_address' => 'email',
+          'email_address' => 'email|nullable',
           'birthdate' => 'date',
         ]);
 
@@ -127,7 +127,7 @@ class ClientsController extends Controller
           'username' => 'required|string|unique:users,username,'.$client->id,
           'password' => 'confirmed',
           'contact_number' => 'required',
-          'email_address' => 'email',
+          'email_address' => 'email|nullable',
           'birthdate' => 'date',
         ]);
 
