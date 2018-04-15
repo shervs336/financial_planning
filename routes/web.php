@@ -29,3 +29,5 @@ Route::resource('/clients/{client}/education', 'EducationController');
 Route::resource('/clients/{client}/accumulation', 'AccumulationController');
 Route::resource('/clients/{client}/emergency_fund', 'EmergencyFundController');
 Route::get('/logs', 'ActivityLogController@index')->name('logs.index');
+
+Route::resource('/users', 'UsersController');

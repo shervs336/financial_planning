@@ -6,19 +6,25 @@
     </a>
   </li>
   @if(Auth::user()->role == "admin")
-  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Charts">
+  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Clients">
     <a class="nav-link" href="{{ route('clients.index') }}">
       <i class="fa fa-fw fa-users"></i>
       <span class="nav-link-text">Clients</span>
     </a>
   </li>
-  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Charts">
+  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Admins">
+    <a class="nav-link" href="{{ route('users.index') }}">
+      <i class="fa fa-fw fa-shield"></i>
+      <span class="nav-link-text">Admins</span>
+    </a>
+  </li>
+  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Backup Database">
     <a class="nav-link" href="{{ route('export') }}">
       <i class="fa fa-fw fa-download"></i>
       <span class="nav-link-text">Backup Database</span>
     </a>
   </li>
-  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Charts">
+  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Restore Database">
     <a class="nav-link" href="{{ route('showImport') }}">
       <i class="fa fa-fw fa-upload"></i>
       <span class="nav-link-text">Restore Database</span>
