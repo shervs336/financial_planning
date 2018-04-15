@@ -111,7 +111,8 @@ class UsersController extends Controller
     public function update(Request $request, User $user)
     {
         $validator = Validator::make($request->all(), [
-          'name' => 'required|string',
+          'firstname' => 'required|string',
+          'lastname' => 'required|string',
           'username' => 'required|string|unique:users,username,'.$user->id,
           'password' => 'confirmed'
         ]);
