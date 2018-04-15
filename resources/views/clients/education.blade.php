@@ -8,7 +8,10 @@
       <div class="card mb-2">
         <div class="card-header">
           <a href="#" data-toggle="collapse" data-target="#educationCard{{$key+1}}">Record #{{$key+1}} </a>
-          <a href="{{ route('education.edit', [$client->id, $education->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Edit Education"><i class="fa fa-fw fa-pencil"></i></a>
+          {!! Form::open(['route' => ['education.destroy', $client->id, $education->id], 'method' => 'delete', 'class'=>'form-inline float-right']) !!}
+          <a href="{{ route('education.edit', [$client->id, $education->id]) }}" class="btn btn-warning btn-sm mr-1" data-toggle="tooltip" title="Edit Education"><i class="fa fa-fw fa-pencil"></i></a>
+          {!! Form::button('<i class="fa fa-fw fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => 'return confirm("Are you sure you want to delete this education")']) !!}
+          {!! Form::close() !!}
         </div>
         <div class="card-body collapse" id="educationCard{{$key+1}}">
           <div class="row">

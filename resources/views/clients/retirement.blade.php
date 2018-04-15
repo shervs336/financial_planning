@@ -1,7 +1,14 @@
 <div class="card mb-4">
   <div class="card-header">
     <a href="#" data-toggle="collapse" data-target="#retirementCard">Retirement Fund</a>
-    <a href="{{ $client->retirement ? route('retirement.edit', [$client->id, $client->retirement->id]) : route('retirement.create', [$client->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Edit Retirement"><i class="fa fa-fw fa-pencil"></i></a>
+    @if($client->retirement)
+      {!! Form::open(['route' => ['retirement.destroy', $client->id, $client->retirement->id], 'method' => 'delete', 'class'=>'form-inline float-right']) !!}
+      <a href="{{ route('retirement.edit', [$client->id, $client->retirement->id]) }}" class="btn btn-warning btn-sm mr-1" data-toggle="tooltip" title="Edit Retirement"><i class="fa fa-fw fa-pencil"></i></a>
+      {!! Form::button('<i class="fa fa-fw fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => 'return confirm("Are you sure you want to delete this retirement record")']) !!}
+      {!! Form::close() !!}
+    @else
+      <a href="{{ route('retirement.create', [$client->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Add Retirement"><i class="fa fa-fw fa-plus"></i></a>
+    @endif
   </div>
   <div class="card-body collapse" id="retirementCard">
     @if($client->retirement)

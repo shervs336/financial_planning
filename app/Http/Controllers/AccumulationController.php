@@ -6,6 +6,7 @@ use App\User;
 use App\Accumulation;
 use Illuminate\Http\Request;
 use Validator;
+use Auth;
 
 class AccumulationController extends Controller
 {
@@ -158,7 +159,7 @@ class AccumulationController extends Controller
           'log' => 'Removed Accumulation - '.$client->name.' successfully deleted.'
         ]);
 
-        $education->delete();
+        $accumulation->delete();
 
         flash()->success('Accumulation successfully deleted!');
 

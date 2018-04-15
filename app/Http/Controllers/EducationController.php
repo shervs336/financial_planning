@@ -7,6 +7,7 @@ use App\Education;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
+
 class EducationController extends Controller
 {
     /**
@@ -154,12 +155,10 @@ class EducationController extends Controller
           'log' => 'Removed Education - '.$client->name.' successfully deleted.'
         ]);
 
-        $clientId = $education->user->id;
-
         $education->delete();
 
         flash()->success('Education successfully deleted!');
 
-        return redirect(route('clients.dashboard', $clientId));
+        return redirect(route('clients.dashboard', $client->id));
     }
 }

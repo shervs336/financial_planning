@@ -6,6 +6,7 @@ use App\User;
 use App\EmergencyFund;
 use Illuminate\Http\Request;
 use Validator;
+use Auth;
 
 class EmergencyFundController extends Controller
 {
@@ -148,7 +149,7 @@ class EmergencyFundController extends Controller
           'log' => 'Removed Emergency Fund - '.$client->name.' successfully deleted.'
         ]);
 
-        $education->delete();
+        $emergency_fund->delete();
 
         flash()->success('Emergency fund successfully deleted!');
 

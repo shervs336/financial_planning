@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('refresh-csrf', function(){
+    return csrf_token();
+})->name('refresh-csrf');
+
 Auth::routes();
 
 Route::get('/', 'DashboardController@index')->name('dashboard');

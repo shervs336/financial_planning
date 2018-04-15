@@ -44,5 +44,19 @@
     <script src="{{ asset('startbootstrap/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 
     <script src="{{ asset('startbootstrap/js/sb-admin.min.js') }}"></script>
+
+    <script type="text/javascript">
+    var csrfToken = $('[name="csrf_token"]').attr('content');
+    var token = $('[name="_token"]');
+
+    setInterval(refreshToken, 300000); // 1 hour
+
+    function refreshToken(){
+        $.get("{{ route('refresh-csrf') }}").done(function(data){
+            csrfToken = data; // the new token
+            token.val(data);
+        });
+    }
+    </script>
 </body>
 </html>

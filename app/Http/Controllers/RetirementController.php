@@ -6,6 +6,7 @@ use App\User;
 use App\Retirement;
 use Illuminate\Http\Request;
 use Validator;
+use Auth;
 
 class RetirementController extends Controller
 {
@@ -150,7 +151,7 @@ class RetirementController extends Controller
           'log' => 'Removed Retirement - '.$client->name.' successfully deleted.'
         ]);
 
-        $education->delete();
+        $retirement->delete();
 
         flash()->success('Retirement successfully deleted!');
 
