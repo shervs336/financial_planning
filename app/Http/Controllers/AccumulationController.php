@@ -63,7 +63,7 @@ class AccumulationController extends Controller
 
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'New Accumulation Record for '.$request->name.' successfully created.'
+          'log' => 'New Accumulation Record for '.$client->firstname.' '.$client->lastname.' successfully created.'
         ]);
 
         Accumulation::create($data);
@@ -127,7 +127,7 @@ class AccumulationController extends Controller
         $diff = array_diff($request->except('_token', '_method'),$accumulation->toArray());
         if($diff)
         {
-            $log = 'Accumulation Updated - '. $client->name.' successfully updated <ul>';
+            $log = 'Accumulation Updated - '. $client->firstname.' '.$client->lastname.' successfully updated <ul>';
             foreach(array_keys($diff) as $key){
               $log .= '<li>'.$accumulation->$key.' changes to '.$request->$key.'</li>';
             }
@@ -156,7 +156,7 @@ class AccumulationController extends Controller
     {
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'Removed Accumulation - '.$client->name.' successfully deleted.'
+          'log' => 'Removed Accumulation - '.$client->firstname.' '.$client->lastname.' successfully deleted.'
         ]);
 
         $accumulation->delete();

@@ -76,7 +76,7 @@ class ClientsController extends Controller
 
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'New Client - '.$request->name.' has successfully created.'
+          'log' => 'New Client - '.$request->firstname.' '.$request->lastname.' has successfully created.'
         ]);
 
         $data = $request->input();
@@ -144,7 +144,7 @@ class ClientsController extends Controller
           $diff = array_diff($request->except('_token', '_method', 'password', 'password_confirmation'), $clientArray = $client->toArray());
 
           if($diff){
-            $log = 'Client Updated - '. $client->name . ' successfully updated <ul>';
+            $log = 'Client Updated - '. $client->firstname.' '.$client->lastname . ' successfully updated <ul>';
             foreach(array_keys($diff) as $key){
               $log .= '<li>'.$client->$key.' changes to '.$request->$key.'</li>';
             }
@@ -164,7 +164,7 @@ class ClientsController extends Controller
           $diff = array_diff($request->except('_token', '_method', 'password_confirmation'), $clientArray = $client->toArray());
 
           if($diff){
-            $log = 'Client Update - '. $client->name . 'successfully updated <ul>';
+            $log = 'Client Update - '. $client->firstname.' '.$client->lastname . 'successfully updated <ul>';
             foreach(array_keys($diff) as $key){
               if($key == "password")
               {
@@ -204,7 +204,7 @@ class ClientsController extends Controller
     {
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'Removed Client - '.$client->name.' successfully deleted.'
+          'log' => 'Removed Client - '.$client->firstname.' '.$client->lastname.' successfully deleted.'
         ]);
 
         $client->delete();
