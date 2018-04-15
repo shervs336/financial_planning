@@ -1,9 +1,9 @@
 <div class="card mb-4">
   <div class="card-header">
-    Accumulation Fund
-    <a href="{{ $client->accumulation ? route('accumulation.edit', [$client->id, $client->accumulation->id]) : route('accumulation.create', [$client->id]) }}" class="btn btn-warning btn-sm float-right"><i class="fa fa-fw fa-pencil"></i></a>
+    <a href="#" data-toggle="collapse" data-target="#accumulationCard">Accumulation Fund</a>
+    <a href="{{ $client->accumulation ? route('accumulation.edit', [$client->id, $client->accumulation->id]) : route('accumulation.create', [$client->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Edit Accumulation"><i class="fa fa-fw fa-pencil"></i></a>
   </div>
-  <div class="card-body">
+  <div class="card-body collapse" id="accumulationCard">
     @if($client->accumulation)
       <div class="table-responsive">
         <table class="table table-bordered table-condensed">
@@ -59,7 +59,7 @@
             </tr>
           </thead>
           <tbody>
-            @for($i=1; $i<=40; $i++)
+            @for($i=1; $i<=$client->accumulation->years_to_accumulate_fund; $i++)
             @php
               if($i >= 1 && $i <= 5){
                 $annual_increase_savings = 1+($client->accumulation->annual_increase_savings_yr_1_5/100);

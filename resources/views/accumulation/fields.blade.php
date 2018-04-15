@@ -40,4 +40,8 @@
     {{ Form::label('start_up_fund', 'Start Up Fund') }}
     {{ Form::text('start_up_fund', null, ['class' => 'form-control']) }}
   </div>
+  <div class="form-group">
+    {{ Form::label('years_to_accumulate_fund', 'Years to Accumulate Fund') }}
+    {{ Form::text('years_to_accumulate_fund', null, ['class' => 'form-control']) }}
+  </div>
   {{ Form::submit('Submit', ['class' => 'btn btn-success']) }}

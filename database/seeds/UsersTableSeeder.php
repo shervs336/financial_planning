@@ -29,6 +29,7 @@ class UsersTableSeeder extends Seeder
               'current_tuition' => floor($faker->numberBetween(1000,30000)),
               'current_child_age' => floor($faker->numberBetween(1,15)),
               'age_to_enter_college' => floor($faker->numberBetween(16,20)),
+              'years_in_college' => floor($faker->numberBetween(1,15)),
               'assumed_annual_increase_tuition_fee' => floor($faker->numberBetween(1,10)),
               'future_annual_increase_tuition_fee' => floor($faker->numberBetween(1,10)),
               'created_at' => $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = null),
@@ -54,6 +55,7 @@ class UsersTableSeeder extends Seeder
               'annual_return_investment_yr_6_10' => floor($faker->numberBetween(1,10)),
               'annual_return_investment_yr_11_up' => floor($faker->numberBetween(1,10)),
               'starting_amount_monthly' => floor($faker->numberBetween(1000,10000)),
+              'years_to_accumulate_fund' => floor($faker->numberBetween(10,60)),
               'start_up_fund' => floor($faker->numberBetween(1000,30000)),
               'created_at' => $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = null),
               'updated_at' => $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = null)

@@ -15,12 +15,6 @@
         </div>
         <div class="mr-5">{{ $retirements }} Retirement</div>
       </div>
-      <a class="card-footer text-white clearfix small z-1" href="{{ route('clients.index') }}">
-        <span class="float-left">View Details</span>
-        <span class="float-right">
-          <i class="fa fa-angle-right"></i>
-        </span>
-      </a>
     </div>
   </div>
 
@@ -32,12 +26,6 @@
         </div>
         <div class="mr-5">{{ $accumulations }} Fund Accumulations</div>
       </div>
-      <a class="card-footer text-white clearfix small z-1" href="{{ route('clients.index') }}">
-        <span class="float-left">View Details</span>
-        <span class="float-right">
-          <i class="fa fa-angle-right"></i>
-        </span>
-      </a>
     </div>
   </div>
 
@@ -49,12 +37,6 @@
         </div>
         <div class="mr-5">{{ $educations }} Education</div>
       </div>
-      <a class="card-footer text-white clearfix small z-1" href="{{ route('clients.index') }}">
-        <span class="float-left">View Details</span>
-        <span class="float-right">
-          <i class="fa fa-angle-right"></i>
-        </span>
-      </a>
     </div>
   </div>
 
@@ -66,12 +48,6 @@
         </div>
         <div class="mr-5">{{ $emergency_funds }} Emergency Fund</div>
       </div>
-      <a class="card-footer text-white clearfix small z-1" href="{{ route('clients.index') }}">
-        <span class="float-left">View Details</span>
-        <span class="float-right">
-          <i class="fa fa-angle-right"></i>
-        </span>
-      </a>
     </div>
   </div>
 </div>
@@ -80,14 +56,14 @@
   <div class="col">
     <div class="card mb-3">
       <div class="card-header">
-        <i class="fa fa-bell-o"></i> Activity Logs</div>
+        <i class="fa fa-bell-o"></i> Recent Activity</div>
       <div class="list-group list-group-flush small">
         @forelse($logs as $log)
         <a class="list-group-item list-group-item-action" href="#">
           <div class="media">
             <div class="media-body">
               {!! $log->log !!}
-              <div class="text-muted smaller">{{ $log->created_at->diffForHumans() }}</div>
+              <div class="text-muted smaller"><i class="fa fa-fw fa-user"></i>{{ $log->user->name }} <i class="fa fa-fw fa-clock-o"></i>{{ $log->created_at->diffForHumans() }}</div>
             </div>
           </div>
         </a>
@@ -100,7 +76,7 @@
           </div>
         </a>
         @endforelse
-        <a class="list-group-item list-group-item-action" href="#">View all activity...</a>
+        <a class="list-group-item list-group-item-action" href="{{ route('logs.index') }}">View all activity...</a>
       </div>
     </div>
   </div>

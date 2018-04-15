@@ -1,9 +1,9 @@
 <div class="card mb-4">
   <div class="card-header">
-    Retirement Fund
-    <a href="{{ $client->retirement ? route('retirement.edit', [$client->id, $client->retirement->id]) : route('retirement.create', [$client->id]) }}" class="btn btn-warning btn-sm float-right"><i class="fa fa-fw fa-pencil"></i></a>
+    <a href="#" data-toggle="collapse" data-target="#retirementCard">Retirement Fund</a>
+    <a href="{{ $client->retirement ? route('retirement.edit', [$client->id, $client->retirement->id]) : route('retirement.create', [$client->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Edit Retirement"><i class="fa fa-fw fa-pencil"></i></a>
   </div>
-  <div class="card-body">
+  <div class="card-body collapse" id="retirementCard">
     @if($client->retirement)
       <div class="row">
         <div class="col-md-6">

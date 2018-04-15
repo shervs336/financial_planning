@@ -58,6 +58,11 @@ class RetirementController extends Controller
 
         Retirement::create($data);
 
+        $this->log([
+          'user_id' => Auth::user()->id,
+          'log' => 'New Retirement Record for '.$request->name.' successfully created.'
+        ]);
+
         flash()->success("Retirement record successfully added");
 
         return redirect(route('clients.dashboard', $client->id));
@@ -110,6 +115,21 @@ class RetirementController extends Controller
             ->withInput();
         }
 
+        $diff = array_diff($request->except('_token', '_method'),$retirement->toArray());
+        if($diff)
+        {
+            $log = 'Retirement Updated - '. $client->name.' successfully updated <ul>';
+            foreach(array_keys($diff) as $key){
+              $log .= '<li>'.$retirement->$key.' changes to '.$request->$key.'</li>';
+            }
+            $log .= '</ul>';
+
+            $this->log([
+              'user_id' => Auth::user()->id,
+              'log' => $log
+            ]);
+        }
+
         $retirement->update($request->input());
 
         flash()->success("Retirement record successfully updated");
@@ -123,8 +143,17 @@ class RetirementController extends Controller
      * @param  \App\Retirement  $retirement
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Retirement $retirement)
+    public function destroy(User $client, Retirement $retirement)
     {
-        //
+        $this->log([
+          'user_id' => Auth::user()->id,
+          'log' => 'Removed Retirement - '.$client->name.' successfully deleted.'
+        ]);
+
+        $education->delete();
+
+        flash()->success('Retirement successfully deleted!');
+
+        return redirect(route('clients.dashboard', $client->id));
     }
 }

@@ -6,7 +6,7 @@ use App\User;
 use App\Education;
 use Illuminate\Http\Request;
 use Validator;
-
+use Auth;
 class EducationController extends Controller
 {
     /**
@@ -42,7 +42,8 @@ class EducationController extends Controller
             'current_child_age' => 'required|numeric',
             'age_to_enter_college' => 'required|numeric',
             'assumed_annual_increase_tuition_fee' => 'required|numeric',
-            'future_annual_increase_tuition_fee' => 'required|numeric'
+            'future_annual_increase_tuition_fee' => 'required|numeric',
+            'years_in_college' => 'required|numeric|min:1'
         ]);
 
         if($validator->fails())
@@ -56,6 +57,11 @@ class EducationController extends Controller
 
         $data = $request->input();
         $data['user_id'] = $client->id;
+
+        $this->log([
+          'user_id' => Auth::user()->id,
+          'log' => 'New Education Record for '.$request->name.' successfully created.'
+        ]);
 
         Education::create($data);
 
@@ -100,7 +106,8 @@ class EducationController extends Controller
           'current_child_age' => 'required|numeric',
           'age_to_enter_college' => 'required|numeric',
           'assumed_annual_increase_tuition_fee' => 'required|numeric',
-          'future_annual_increase_tuition_fee' => 'required|numeric'
+          'future_annual_increase_tuition_fee' => 'required|numeric',
+          'years_in_college' => 'required|numeric|min:1'
         ]);
 
         if($validator->fails())
@@ -110,6 +117,21 @@ class EducationController extends Controller
           return redirect(route('Education.edit', $education->user_id))
             ->withErrors($validator)
             ->withInput();
+        }
+
+        $diff = array_diff($request->except('_token', '_method'),$education->toArray());
+        if($diff)
+        {
+            $log = 'Education Updated - '. $client->name.' successfully updated <ul>';
+            foreach(array_keys($diff) as $key){
+              $log .= '<li>'.$education->$key.' changes to '.$request->$key.'</li>';
+            }
+            $log .= '</ul>';
+
+            $this->log([
+              'user_id' => Auth::user()->id,
+              'log' => $log
+            ]);
         }
 
         $education->update($request->input());
@@ -125,8 +147,19 @@ class EducationController extends Controller
      * @param  \App\Education  $education
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Education $education)
+    public function destroy(User $client, Education $education)
     {
-        //
+        $this->log([
+          'user_id' => Auth::user()->id,
+          'log' => 'Removed Education - '.$client->name.' successfully deleted.'
+        ]);
+
+        $clientId = $education->user->id;
+
+        $education->delete();
+
+        flash()->success('Education successfully deleted!');
+
+        return redirect(route('clients.dashboard', $clientId));
     }
 }

@@ -60,6 +60,11 @@ class AccumulationController extends Controller
         $data = $request->input();
         $data['user_id'] = $client->id;
 
+        $this->log([
+          'user_id' => Auth::user()->id,
+          'log' => 'New Accumulation Record for '.$request->name.' successfully created.'
+        ]);
+
         Accumulation::create($data);
 
         flash()->success("Accumulation record successfully added");
@@ -118,6 +123,21 @@ class AccumulationController extends Controller
             ->withInput();
         }
 
+        $diff = array_diff($request->except('_token', '_method'),$accumulation->toArray());
+        if($diff)
+        {
+            $log = 'Accumulation Updated - '. $client->name.' successfully updated <ul>';
+            foreach(array_keys($diff) as $key){
+              $log .= '<li>'.$accumulation->$key.' changes to '.$request->$key.'</li>';
+            }
+            $log .= '</ul>';
+
+            $this->log([
+              'user_id' => Auth::user()->id,
+              'log' => $log
+            ]);
+        }
+
         $accumulation->update($request->input());
 
         flash()->success("Retirement record successfully updated");
@@ -131,8 +151,17 @@ class AccumulationController extends Controller
      * @param  \App\Accumulation  $accumulation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Accumulation $accumulation)
+    public function destroy(User $client, Accumulation $accumulation)
     {
-        //
+        $this->log([
+          'user_id' => Auth::user()->id,
+          'log' => 'Removed Accumulation - '.$client->name.' successfully deleted.'
+        ]);
+
+        $education->delete();
+
+        flash()->success('Accumulation successfully deleted!');
+
+        return redirect(route('clients.dashboard', $client->id));
     }
 }

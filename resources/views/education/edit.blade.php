@@ -19,7 +19,7 @@
     </div>
   @endif
 
-  {{ Form::model($education, ['route' => ['education.update', 'client' => $client->id, 'education' => $client->education->id], 'method' => 'put']) }}
+  {{ Form::model($education, ['route' => ['education.update', 'client' => $client->id, 'education' => $education->id], 'method' => 'put']) }}
     @include('education.fields')
   {{ Form::close() }}
 

@@ -11,6 +11,10 @@
   {{ Form::text('age_to_enter_college', null, ['class' => 'form-control']) }}
 </div>
 <div class="form-group">
+  {{ Form::label('years_in_college', 'Years in College') }}
+  {{ Form::text('years_in_college', null, ['class' => 'form-control']) }}
+</div>
+<div class="form-group">
   {{ Form::label('assumed_annual_increase_tuition_fee', 'Assumed Annual Increase in Tuition Fee') }}
   {{ Form::text('assumed_annual_increase_tuition_fee', null, ['class' => 'form-control']) }}
 </div>

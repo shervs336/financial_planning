@@ -55,6 +55,11 @@ class EmergencyFundController extends Controller
         $data = $request->input();
         $data['user_id'] = $client->id;
 
+        $this->log([
+          'user_id' => Auth::user()->id,
+          'log' => 'New Emergency Fund Record for '.$request->name.' successfully created.'
+        ]);
+
         EmergencyFund::create($data);
 
         flash()->success("Emergency fund record successfully added");
@@ -108,6 +113,21 @@ class EmergencyFundController extends Controller
             ->withInput();
         }
 
+        $diff = array_diff($request->except('_token', '_method'),$emergency_fund->toArray());
+        if($diff)
+        {
+            $log = 'Emergency Fund Updated - '. $client->name.' successfully updated <ul>';
+            foreach(array_keys($diff) as $key){
+              $log .= '<li>'.$emergency_fund->$key.' changes to '.$request->$key.'</li>';
+            }
+            $log .= '</ul>';
+
+            $this->log([
+              'user_id' => Auth::user()->id,
+              'log' => $log
+            ]);
+        }
+
         $emergency_fund->update($request->input());
 
         flash()->success("Retirement record successfully updated");
@@ -121,8 +141,17 @@ class EmergencyFundController extends Controller
      * @param  \App\emergency_fund  $emergency_fund
      * @return \Illuminate\Http\Response
      */
-    public function destroy(emergency_fund $emergency_fund)
+    public function destroy(User $client, EmergencyFund $emergency_fund)
     {
-        //
+        $this->log([
+          'user_id' => Auth::user()->id,
+          'log' => 'Removed Emergency Fund - '.$client->name.' successfully deleted.'
+        ]);
+
+        $education->delete();
+
+        flash()->success('Emergency fund successfully deleted!');
+
+        return redirect(route('clients.dashboard', $client->id));
     }
 }

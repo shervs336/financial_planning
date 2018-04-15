@@ -114,9 +114,6 @@ class ClientsController extends Controller
             ->withInput();
         }
 
-
-
-
         $this->log([
           'user_id' => Auth::user()->id,
           'log' => 'Removed Client - '.$client->name.' successfully deleted.'
@@ -126,7 +123,7 @@ class ClientsController extends Controller
           $diff = array_diff($request->except('_token', '_method', 'password', 'password_confirmation'), $clientArray = $client->toArray());
 
           if($diff){
-            $log = 'Client Update - '. $client->name . ' successfully updated <ul>';
+            $log = 'Client Updated - '. $client->name . ' successfully updated <ul>';
             foreach(array_keys($diff) as $key){
               $log .= '<li>'.$client->$key.' changes to '.$request->$key.'</li>';
             }

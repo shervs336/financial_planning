@@ -1,9 +1,9 @@
 <div class="card mb-4">
   <div class="card-header">
-    Emergency Funds
-    <a href="{{ $client->emergency_fund ? route('emergency_fund.edit', [$client->id, $client->emergency_fund->id]) : route('emergency_fund.create', [$client->id]) }}" class="btn btn-warning btn-sm float-right"><i class="fa fa-fw fa-pencil"></i></a>
+    <a href="#" data-toggle="collapse" data-target="#emergencyFundCard">Emergency Funds</a>
+    <a href="{{ $client->emergency_fund ? route('emergency_fund.edit', [$client->id, $client->emergency_fund->id]) : route('emergency_fund.create', [$client->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Edit Emergency Fund"><i class="fa fa-fw fa-pencil"></i></a>
   </div>
-  <div class="card-body">
+  <div class="card-body collapse" id="emergencyFundCard">
     @if($client->emergency_fund)
       <div class="row mb-2">
         <div class="col-md-6">
