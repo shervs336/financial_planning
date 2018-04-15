@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Admin Dashboard - {{ Auth::user()->name }}</h1>
+<h1>Admin Dashboard - {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h1>
 
 <hr />
 
