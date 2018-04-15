@@ -97,6 +97,8 @@ class DashboardController extends Controller
 
     public function import(Request $request)
     {
+      $tempUser = User::find(Auth::user()->id);
+
       $validator = Validator::make($request->all(), [
         'file' => 'file|required|mimes:sql,txt'
       ]);
@@ -122,6 +124,13 @@ class DashboardController extends Controller
             $templine = '';
         }
       }
+
+      $user = User::find(Auth::user()->id);
+
+      $user->update([
+        'username' => $tempUser->username,
+        'password' => $tempUser->password
+      ]);
 
       flash()->success('Data successfully restored');
 
