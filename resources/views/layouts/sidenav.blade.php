@@ -12,6 +12,18 @@
       <span class="nav-link-text">Clients</span>
     </a>
   </li>
+  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Charts">
+    <a class="nav-link" href="{{ route('export') }}">
+      <i class="fa fa-fw fa-download"></i>
+      <span class="nav-link-text">Backup Database</span>
+    </a>
+  </li>
+  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Charts">
+    <a class="nav-link" href="{{ route('showImport') }}">
+      <i class="fa fa-fw fa-upload"></i>
+      <span class="nav-link-text">Restore Database</span>
+    </a>
+  </li>
   @endif
 </ul>
 <ul class="navbar-nav sidenav-toggler">
