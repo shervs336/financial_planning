@@ -15,6 +15,8 @@
 
     <link href="{{ asset('startbootstrap/vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+
     <link href="{{ asset('startbootstrap/css/sb-admin.min.css') }}" rel="stylesheet">
 </head>
 <body class="fixed-nav sticky-footer" id="page-top">
@@ -42,10 +44,16 @@
     <script src="{{ asset('startbootstrap/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('bower_components/popper.js/dist/umd/popper.min.js')}}"></script>
     <script src="{{ asset('startbootstrap/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-
+    <script src="{{ asset('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('startbootstrap/js/sb-admin.min.js') }}"></script>
 
     <script type="text/javascript">
+    $(function(){
+      $('.datepicker').datepicker({
+        format: "yyyy-mm-dd"
+      });
+    });
+
     var csrfToken = $('[name="csrf_token"]').attr('content');
     var token = $('[name="_token"]');
 
