@@ -58,7 +58,7 @@ class EmergencyFundController extends Controller
 
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'New Emergency Fund Record for '.$client->name.' successfully created.'
+          'log' => 'New Emergency Fund Record for '.$client->firstname.' '.$client->lastname.' successfully created.'
         ]);
 
         EmergencyFund::create($data);
@@ -117,7 +117,7 @@ class EmergencyFundController extends Controller
         $diff = array_diff($request->except('_token', '_method'),$emergency_fund->toArray());
         if($diff)
         {
-            $log = 'Emergency Fund Updated - '. $client->name.' successfully updated <ul>';
+            $log = 'Emergency Fund Updated - '. $client->firstname.' '.$client->lastname.' successfully updated <ul>';
             foreach(array_keys($diff) as $key){
               $log .= '<li>'.$emergency_fund->$key.' changes to '.$request->$key.'</li>';
             }
@@ -146,7 +146,7 @@ class EmergencyFundController extends Controller
     {
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'Removed Emergency Fund - '.$client->name.' successfully deleted.'
+          'log' => 'Removed Emergency Fund - '.$client->firstname.' '.$client->lastname.' successfully deleted.'
         ]);
 
         $emergency_fund->delete();

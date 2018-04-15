@@ -47,7 +47,12 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), User::$rules);
+        $validator = Validator::make($request->all(), [
+          'firstname' => 'required|string',
+          'lastname' => 'required|string',
+          'username' => 'required|string|unique:users',
+          'password' => 'confirmed',
+        ]);
 
         if($validator->fails())
         {
@@ -60,7 +65,7 @@ class UsersController extends Controller
 
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'New User - '.$request->name.' has successfully created.'
+          'log' => 'New User - '.$request->firstname.' '.$request->lastname.' has successfully created.'
         ]);
 
         $data = $request->input();
@@ -124,7 +129,7 @@ class UsersController extends Controller
           $diff = array_diff($request->except('_token', '_method', 'password', 'password_confirmation'), $user->toArray());
 
           if($diff){
-            $log = 'User Updated - '. $user->name . ' successfully updated <ul>';
+            $log = 'User Updated - '. $user->firstname.' '.$user->lastname . ' successfully updated <ul>';
             foreach(array_keys($diff) as $key){
               $log .= '<li>'.$user->$key.' changes to '.$request->$key.'</li>';
             }
@@ -142,7 +147,7 @@ class UsersController extends Controller
           $diff = array_diff($request->except('_token', '_method', 'password_confirmation'), $clientArray = $client->toArray());
 
           if($diff){
-            $log = 'User Update - '. $user->name . 'successfully updated <ul>';
+            $log = 'User Update - '. $user->firstname.' '.$user->lastname . 'successfully updated <ul>';
             foreach(array_keys($diff) as $key){
               $log .= '<li>'.$user->$key.' changes to '.$request->$key.'</li>';
             }
@@ -174,7 +179,7 @@ class UsersController extends Controller
     {
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'Removed User - '.$user->name.' successfully deleted.'
+          'log' => 'Removed User - '.$user->firstname.' '.$user->lastname.' successfully deleted.'
         ]);
 
         $user->delete();

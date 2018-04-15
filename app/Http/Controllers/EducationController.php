@@ -61,7 +61,7 @@ class EducationController extends Controller
 
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'New Education Record for '.$request->name.' successfully created.'
+          'log' => 'New Education Record for '.$client->firstname.' '.$client->lastname.' successfully created.'
         ]);
 
         Education::create($data);
@@ -123,7 +123,7 @@ class EducationController extends Controller
         $diff = array_diff($request->except('_token', '_method'),$education->toArray());
         if($diff)
         {
-            $log = 'Education Updated - '. $client->name.' successfully updated <ul>';
+            $log = 'Education Updated - '. $client->firstname.' '.$client->lastname.' successfully updated <ul>';
             foreach(array_keys($diff) as $key){
               $log .= '<li>'.$education->$key.' changes to '.$request->$key.'</li>';
             }
@@ -152,7 +152,7 @@ class EducationController extends Controller
     {
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'Removed Education - '.$client->name.' successfully deleted.'
+          'log' => 'Removed Education - '.$client->firstname.' '.$client->lastname.' successfully deleted.'
         ]);
 
         $education->delete();

@@ -61,7 +61,7 @@ class RetirementController extends Controller
 
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'New Retirement Record for '.$request->name.' successfully created.'
+          'log' => 'New Retirement Record for '.$request->firstname.' '.$request->lastname.' successfully created.'
         ]);
 
         flash()->success("Retirement record successfully added");
@@ -111,7 +111,7 @@ class RetirementController extends Controller
         {
           flash()->error("There are errors in your inputs");
 
-          return redirect(route('retirement.edit', $retirement->user_id))
+          return redirect(route('retirement.edit', [$retirement->user_id, $retirement->id]))
             ->withErrors($validator)
             ->withInput();
         }
@@ -119,7 +119,7 @@ class RetirementController extends Controller
         $diff = array_diff($request->except('_token', '_method'),$retirement->toArray());
         if($diff)
         {
-            $log = 'Retirement Updated - '. $client->name.' successfully updated <ul>';
+            $log = 'Retirement Updated - '. $client->firstname.' '.$client->lastname.' successfully updated <ul>';
             foreach(array_keys($diff) as $key){
               $log .= '<li>'.$retirement->$key.' changes to '.$request->$key.'</li>';
             }
@@ -148,7 +148,7 @@ class RetirementController extends Controller
     {
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'Removed Retirement - '.$client->name.' successfully deleted.'
+          'log' => 'Removed Retirement - '.$client->firstname.' '.$client->lastname.' successfully deleted.'
         ]);
 
         $retirement->delete();

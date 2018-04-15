@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
+use Carbon\Carbon as Carbon;
 
 class ClientsController extends Controller
 {
@@ -23,7 +24,11 @@ class ClientsController extends Controller
     public function index(Request $request)
     {
         if($request->request->count()){
-          $clients = User::where('role', 'client')->where('name', 'like', '%' . $request->search . '%' )->paginate(10);
+          $clients = User::where('role', 'client')
+            ->where('firstname', 'like', '%' . $request->search . '%' )
+            ->orWhere('middlename', 'like', '%' . $request->search . '%' )
+            ->orWhere('lastname', 'like', '%' . $request->search . '%' )
+            ->paginate(10);
           $clients->appends(['search' => $request->search]);
         } else {
           $clients = User::where('role', 'client')->paginate(10);
@@ -50,7 +55,15 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), User::$rules);
+        $validator = Validator::make($request->all(), [
+          'firstname' => 'required|string',
+          'lastname' => 'required|string',
+          'username' => 'required|string|unique:users',
+          'password' => 'confirmed',
+          'contact_number' => 'required',
+          'email_address' => 'email',
+          'birthdate' => 'date',
+        ]);
 
         if($validator->fails())
         {
@@ -63,7 +76,7 @@ class ClientsController extends Controller
 
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'New Client - '.$request->name.' has successfully created.'
+          'log' => 'New Client - '.$request->firstname.' '.$request->lastname.' has successfully created.'
         ]);
 
         $data = $request->input();
@@ -109,9 +122,13 @@ class ClientsController extends Controller
     public function update(Request $request, User $client)
     {
         $validator = Validator::make($request->all(), [
-          'name' => 'required|string',
+          'firstname' => 'required|string',
+          'lastname' => 'required|string',
           'username' => 'required|string|unique:users,username,'.$client->id,
-          'password' => 'confirmed'
+          'password' => 'confirmed',
+          'contact_number' => 'required',
+          'email_address' => 'email',
+          'birthdate' => 'date',
         ]);
 
         if($validator->fails())
@@ -127,7 +144,7 @@ class ClientsController extends Controller
           $diff = array_diff($request->except('_token', '_method', 'password', 'password_confirmation'), $clientArray = $client->toArray());
 
           if($diff){
-            $log = 'Client Updated - '. $client->name . ' successfully updated <ul>';
+            $log = 'Client Updated - '. $client->firstname.' '.$client->lastname . ' successfully updated <ul>';
             foreach(array_keys($diff) as $key){
               $log .= '<li>'.$client->$key.' changes to '.$request->$key.'</li>';
             }
@@ -139,14 +156,22 @@ class ClientsController extends Controller
             ]);
           }
 
-          $client->update($request->except('password'));
+          $data = $request->except('password', 'password_confirmation');
+
+          $client->update($data);
         } else {
 
           $diff = array_diff($request->except('_token', '_method', 'password_confirmation'), $clientArray = $client->toArray());
 
           if($diff){
-            $log = 'Client Update - '. $client->name . 'successfully updated <ul>';
+            $log = 'Client Update - '. $client->firstname.' '.$client->lastname . 'successfully updated <ul>';
             foreach(array_keys($diff) as $key){
+              if($key == "password")
+              {
+                $log .= '<li>Update client password</li>';
+                continue;
+              }
+
               $log .= '<li>'.$client->$key.' changes to '.$request->$key.'</li>';
             }
             $log .= '</ul>';
@@ -160,6 +185,7 @@ class ClientsController extends Controller
 
           $data = $request->input();
           $data['password'] = bcrypt($request->password);
+
           $client->update($data);
         }
 
@@ -178,7 +204,7 @@ class ClientsController extends Controller
     {
         $this->log([
           'user_id' => Auth::user()->id,
-          'log' => 'Removed Client - '.$client->name.' successfully deleted.'
+          'log' => 'Removed Client - '.$client->firstname.' '.$client->lastname.' successfully deleted.'
         ]);
 
         $client->delete();

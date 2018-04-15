@@ -13,9 +13,12 @@
   @endif
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      <i class="fa fa-fw fa-user"></i> {{ Auth::user()->name }}
+      <i class="fa fa-fw fa-user"></i> {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}
     </a>
     <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+      <a href="{{ route('showProfile', [Auth::user()->id]) }}" class="dropdown-item">
+          <i class="fa fa-edit"></i> Profile
+      </a>
       <a href="{{ route('logout') }}" class="dropdown-item"
           onclick="event.preventDefault();
                    document.getElementById('logout-form').submit();">

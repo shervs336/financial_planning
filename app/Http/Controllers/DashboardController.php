@@ -136,4 +136,96 @@ class DashboardController extends Controller
 
       return redirect(route('dashboard'));
     }
+
+    public function showProfile(User $client)
+    {
+        return view('profile', compact('client'));
+    }
+
+    public function updateProfile(User $client, Request $request)
+    {
+
+        if(Auth::user()->role == "client"){
+          $rules = [
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'username' => 'required|string|unique:users,username,'.$client->id,
+            'password' => 'confirmed',
+            'contact_number' => 'required',
+            'email_address' => 'email',
+            'birthdate' => 'date',
+          ];
+        } else {
+          $rules = [
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'username' => 'required|string|unique:users,username,'.$client->id,
+            'password' => 'confirmed'
+          ];
+        }
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails())
+        {
+          flash()->error("There are errors in your inputs");
+
+          return redirect(route('showProfile', $client->id))
+            ->withErrors($validator)
+            ->withInput();
+        }
+
+        if(!$request->password){
+          $diff = array_diff($request->except('_token', '_method', 'password', 'password_confirmation'), $clientArray = $client->toArray());
+
+          if($diff){
+            $log = 'Profile Updated - '. $client->firstname .' '.$client->lastname.' successfully updated <ul>';
+            foreach(array_keys($diff) as $key){
+              $log .= '<li>'.$client->$key.' changes to '.$request->$key.'</li>';
+            }
+            $log .= '</ul>';
+
+            $this->log([
+              'user_id' => Auth::user()->id,
+              'log' => $log
+            ]);
+          }
+
+          $data = $request->except('password', 'password_confirmation');
+
+          $client->update($data);
+        } else {
+
+          $diff = array_diff($request->except('_token', '_method', 'password_confirmation'), $clientArray = $client->toArray());
+
+          if($diff){
+            $log = 'Profile Updated - '. $client->firstname .' '.$client->lastname. 'successfully updated <ul>';
+            foreach(array_keys($diff) as $key){
+              if($key == "password")
+              {
+                $log .= '<li>Update profile password</li>';
+                continue;
+              }
+
+              $log .= '<li>'.$client->$key.' changes to '.$request->$key.'</li>';
+            }
+            $log .= '</ul>';
+
+            $this->log([
+              'user_id' => Auth::user()->id,
+              'log' => $log
+            ]);
+          }
+
+
+          $data = $request->input();
+          $data['password'] = bcrypt($request->password);
+
+          $client->update($data);
+        }
+
+        flash()->success("Profile successfully updated");
+
+        return redirect(route('showProfile', $client->id));
+    }
 }

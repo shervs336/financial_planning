@@ -21,6 +21,8 @@ Route::get('/', 'DashboardController@index')->name('dashboard');
 Route::get('/export', 'DashboardController@export')->name('export');
 Route::get('/import', 'DashboardController@showImport')->name('showImport');
 Route::post('/import', 'DashboardController@import')->name('import');
+Route::get('/profile/{client}', 'DashboardController@showProfile')->name('showProfile');
+Route::put('/profile/{client}', 'DashboardController@updateProfile')->name('profile.update');
 Route::resource('/clients', 'ClientsController');
 Route::get('/clients/{client}/dashboard', 'ClientsController@dashboard')->name('clients.dashboard');
 

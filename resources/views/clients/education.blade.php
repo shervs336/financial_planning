@@ -20,7 +20,7 @@
         <div class="card-body collapse" id="educationCard{{$key+1}}">
           <div class="row">
             <div class="col-md-6">
-              <span class="text-primary">Current Tuition:</span> {{ number_format($education->current_tuition,2) }}
+              <span class="text-primary">Current Tuition:</span> ₱ {{ number_format($education->current_tuition,2) }}
             </div>
             <div class="col-md-6">
               <span class="text-primary">Current Child Age:</span> {{ $education->current_child_age }}
@@ -44,7 +44,7 @@
           </div>
           <div class="row mb-4">
             <div class="col-md-6">
-              <span class="text-primary">Assumed Annual Increase in Tuition Fee:</span> {{ $education->years_in_college }} %
+              <span class="text-primary">Years in College:</span> {{ $education->years_in_college }} %
             </div>
           </div>
 
@@ -58,9 +58,9 @@
                 <tr>
                   <td>Year {{ $i }}</td>
                   @if($i == 1)
-                    <td>{{ number_format($future_value_tuition = $education->current_tuition*pow((1+($education->assumed_annual_increase_tuition_fee/100)),$years_to_save), 2)}}</td>
+                    <td>₱ {{ number_format($future_value_tuition = $education->current_tuition*pow((1+($education->assumed_annual_increase_tuition_fee/100)),$years_to_save), 2)}}</td>
                   @else
-                    <td>{{ number_format($future_value_tuition = $future_value_tuition*(1+($education->future_annual_increase_tuition_fee/100)), 2)}}</td>
+                    <td>₱ {{ number_format($future_value_tuition = $future_value_tuition*(1+($education->future_annual_increase_tuition_fee/100)), 2)}}</td>
                   @endif
                 </tr>
                 @endfor
