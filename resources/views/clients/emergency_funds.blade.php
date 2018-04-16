@@ -27,7 +27,7 @@
           <span class="text-primary">Percentage of Income Committment: </span> {{ number_format($client->emergency_fund->allotment_of_income,2) }} %
         </div>
         <div class="col-md-6">
-          <span class="text-primary">Required Monthly Savings: </span> ₱ {{ number_format($monthly_savings = $client->emergency_fund->monthly_income * (1+($client->emergency_fund->allotment_of_income/100)),2) }}
+          <span class="text-primary">Required Monthly Savings: </span> ₱ {{ number_format($monthly_savings = $client->emergency_fund->monthly_income * ($client->emergency_fund->allotment_of_income/100),2) }}
         </div>
       </div>
       <div class="row mb-2">
