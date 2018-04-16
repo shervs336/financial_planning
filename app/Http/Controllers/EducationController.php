@@ -137,7 +137,7 @@ class EducationController extends Controller
 
         $education->update($request->input());
 
-        flash()->success("Retirement record successfully updated");
+        flash()->success("Education record successfully updated");
 
         return redirect(route('clients.dashboard', $education->user_id));
     }
