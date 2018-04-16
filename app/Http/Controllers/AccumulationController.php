@@ -46,7 +46,8 @@ class AccumulationController extends Controller
             'annual_return_investment_yr_6_10' => 'required|numeric',
             'annual_return_investment_yr_11_up' => 'required|numeric',
             'starting_amount_monthly' => 'required|numeric',
-            'start_up_fund' => 'required|numeric'
+            'start_up_fund' => 'required|numeric',
+            'years_to_accumulate_fund' => 'required|numeric|min:1',
         ]);
 
         if($validator->fails())
@@ -112,7 +113,8 @@ class AccumulationController extends Controller
             'annual_return_investment_yr_6_10' => 'required|numeric',
             'annual_return_investment_yr_11_up' => 'required|numeric',
             'starting_amount_monthly' => 'required|numeric',
-            'start_up_fund' => 'required|numeric'
+            'start_up_fund' => 'required|numeric',
+            'years_to_accumulate_fund' => 'required|numeric|min:1',
         ]);
 
         if($validator->fails())
