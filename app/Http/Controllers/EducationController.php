@@ -115,7 +115,7 @@ class EducationController extends Controller
         {
           flash()->error("There are errors in your inputs");
 
-          return redirect(route('Education.edit', $education->user_id))
+          return redirect(route('education.edit', $education->user_id))
             ->withErrors($validator)
             ->withInput();
         }

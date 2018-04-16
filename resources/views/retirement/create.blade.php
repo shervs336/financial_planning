@@ -2,7 +2,7 @@
 
 @section('content')
   <h1>
-    Create - Retirement for <span class="text-primary">{{ $client->name }}</span>
+    Create - Retirement for <span class="text-primary">{{ $client->firstname }} {{ $client->lastname }}</span>
   </h1>
 
   <hr />

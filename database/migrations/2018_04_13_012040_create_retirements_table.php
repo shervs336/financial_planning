@@ -16,7 +16,7 @@ class CreateRetirementsTable extends Migration
         Schema::create('retirements', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->decimal('monthly_income', 20, 2);
             $table->decimal('inflation_rate', 20, 2);
             $table->integer('current_age');

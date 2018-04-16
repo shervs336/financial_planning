@@ -119,7 +119,7 @@ class AccumulationController extends Controller
         {
           flash()->error("There are errors in your inputs");
 
-          return redirect(route('accumulation.edit', $accumulation->user_id))
+          return redirect(route('accumulation.edit', [$client->id, $accumulation->user_id]))
             ->withErrors($validator)
             ->withInput();
         }

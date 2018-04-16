@@ -16,7 +16,7 @@ class CreateAccumulationsTable extends Migration
         Schema::create('accumulations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->decimal('annual_increase_savings_yr_1_5', 20, 2);
             $table->decimal('annual_increase_savings_yr_6_10', 20, 2);
             $table->decimal('annual_increase_savings_yr_11_up', 20, 2);

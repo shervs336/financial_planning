@@ -13,9 +13,9 @@
     </a>
   </li>
   <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Admins">
-    <a class="nav-link" href="{{ route('users.index') }}">
+    <a class="nav-link" href="{{ route('users.edit', ['user' => Auth::user()->id]) }}">
       <i class="fa fa-fw fa-shield"></i>
-      <span class="nav-link-text">Admins</span>
+      <span class="nav-link-text">Admin</span>
     </a>
   </li>
   <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Backup Database">

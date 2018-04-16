@@ -16,7 +16,7 @@ class CreateTableEmergencyFunds extends Migration
         Schema::create('emergency_funds', function (Blueprint $table){
           $table->increments('id');
           $table->integer('user_id')->unsigned();
-          $table->foreign('user_id')->references('id')->on('users');
+          $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
           $table->decimal('monthly_income', 20, 2);
           $table->decimal('advisable_fund', 20, 2);
           $table->decimal('allotment_of_income', 20, 2);

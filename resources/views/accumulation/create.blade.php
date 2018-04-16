@@ -2,7 +2,7 @@
 
 @section('content')
   <h1>
-    Create - Fund Accumulation for <span class="text-primary">{{ $client->name }}</span>
+    Create - Fund Accumulation for <span class="text-primary">{{ $client->firstname }} {{ $client->lastname }}</span>
   </h1>
 
   <hr />

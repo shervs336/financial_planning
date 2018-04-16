@@ -2,7 +2,7 @@
 
 @section('content')
   <h1>
-    Edit - Emergency Fund for <span class="text-primary">{{ $client->name }}</span>
+    Edit - Emergency Fund for <span class="text-primary">{{ $client->firstname }} {{ $client->lastname }}</span>
   </h1>
 
   <hr />

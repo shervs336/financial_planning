@@ -16,7 +16,7 @@ class CreateEducationsTable extends Migration
         Schema::create('educations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->decimal('current_tuition', 20, 2);
             $table->integer('current_child_age');
             $table->integer('age_to_enter_college');

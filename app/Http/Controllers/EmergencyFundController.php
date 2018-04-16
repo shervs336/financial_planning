@@ -109,7 +109,7 @@ class EmergencyFundController extends Controller
         {
           flash()->error("There are errors in your inputs");
 
-          return redirect(route('emergency_fund.edit', $emergency_fund->user_id))
+          return redirect(route('emergency_fund.edit', [$client->id, $emergency_fund->user_id]))
             ->withErrors($validator)
             ->withInput();
         }
