@@ -145,7 +145,7 @@ class UsersController extends Controller
           $user->update($request->except('password'));
         } else {
 
-          $diff = array_diff($request->except('_token', '_method', 'password_confirmation'), $clientArray = $client->toArray());
+          $diff = array_diff($request->except('_token', '_method', 'password_confirmation'), $user->toArray());
 
           if($diff){
             $log = 'User Update - '. $user->firstname.' '.$user->lastname . ' successfully updated <ul>';
