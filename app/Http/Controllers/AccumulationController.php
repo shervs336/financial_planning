@@ -143,7 +143,7 @@ class AccumulationController extends Controller
 
         $accumulation->update($request->input());
 
-        flash()->success("Retirement record successfully updated");
+        flash()->success("Accumulation record successfully updated");
 
         return redirect(route('clients.dashboard', $accumulation->user_id));
     }

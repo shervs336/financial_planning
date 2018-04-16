@@ -131,7 +131,7 @@ class EmergencyFundController extends Controller
 
         $emergency_fund->update($request->input());
 
-        flash()->success("Retirement record successfully updated");
+        flash()->success("Emergency fund record successfully updated");
 
         return redirect(route('clients.dashboard', $emergency_fund->user_id));
     }
