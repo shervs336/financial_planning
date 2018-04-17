@@ -12,12 +12,11 @@
           <a href="#" data-toggle="collapse" data-target="#educationCard{{$key+1}}">Record #{{$key+1}} </a>
           @if(Auth::user()->role == "admin")
             {!! Form::open(['route' => ['education.destroy', $client->id, $education->id], 'method' => 'delete', 'class'=>'form-inline float-right']) !!}
+            <a href="{{ route('education.pdf', [$client->id, $education->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Print to PDF"><i class="fa fa-fw fa-print"></i></a>
             <a href="{{ route('education.payment', [$client->id, $education->id]) }}" class="btn btn-info btn-sm mr-1" data-toggle="tooltip" title="Edit Payment"><i class="fa fa-fw fa-money"></i></a>
             <a href="{{ route('education.edit', [$client->id, $education->id]) }}" class="btn btn-warning btn-sm mr-1" data-toggle="tooltip" title="Edit Education"><i class="fa fa-fw fa-pencil"></i></a>
             {!! Form::button('<i class="fa fa-fw fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => 'return confirm("Are you sure you want to delete this education")']) !!}
             {!! Form::close() !!}
-          @else
-            <a href="{{ route('education.pdf', [$client->id, $education->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Print to PDF"><i class="fa fa-fw fa-print"></i></a>
           @endif
         </div>
         <div class="card-body collapse" id="educationCard{{$key+1}}">

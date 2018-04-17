@@ -4,6 +4,7 @@
     @if(Auth::user()->role == "admin")
       @if($client->retirement)
         {!! Form::open(['route' => ['retirement.destroy', $client->id, $client->retirement->id], 'method' => 'delete', 'class'=>'form-inline float-right']) !!}
+        <a href="{{ route('retirement.pdf', [$client->id, $client->retirement->id]) }}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" title="Print to PDF"><i class="fa fa-fw fa-print"></i></a>
         <a href="{{ route('retirement.payment', [$client->id, $client->retirement->id]) }}" class="btn btn-info btn-sm mr-1" data-toggle="tooltip" title="Edit Payment"><i class="fa fa-fw fa-money"></i></a>
         <a href="{{ route('retirement.edit', [$client->id, $client->retirement->id]) }}" class="btn btn-warning btn-sm mr-1" data-toggle="tooltip" title="Edit Retirement"><i class="fa fa-fw fa-pencil"></i></a>
         {!! Form::button('<i class="fa fa-fw fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => 'return confirm("Are you sure you want to delete this retirement record")']) !!}
@@ -11,8 +12,6 @@
       @else
         <a href="{{ route('retirement.create', [$client->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Add Retirement"><i class="fa fa-fw fa-plus"></i></a>
       @endif
-    @else
-      <a href="{{ route('retirement.pdf', [$client->id, $client->retirement->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Print to PDF"><i class="fa fa-fw fa-print"></i></a>
     @endif
   </div>
   <div class="card-body collapse" id="retirementCard">

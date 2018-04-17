@@ -4,6 +4,7 @@
     @if(Auth::user()->role == "admin")
       @if($client->emergency_fund)
         {!! Form::open(['route' => ['emergency_fund.destroy', $client->id, $client->emergency_fund->id], 'method' => 'delete', 'class'=>'form-inline float-right']) !!}
+        <a href="{{ route('emergency_fund.pdf', [$client->id, $client->emergency_fund->id]) }}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" title="Print to PDF"><i class="fa fa-fw fa-print"></i></a>
         <a href="{{ route('emergency_fund.payment', [$client->id, $client->emergency_fund->id]) }}" class="btn btn-info btn-sm mr-1" data-toggle="tooltip" title="Edit Payment"><i class="fa fa-fw fa-money"></i></a>
         <a href="{{ route('emergency_fund.edit', [$client->id, $client->emergency_fund->id]) }}" class="btn btn-warning btn-sm mr-1" data-toggle="tooltip" title="Edit Emergency Fund"><i class="fa fa-fw fa-pencil"></i></a>
         {!! Form::button('<i class="fa fa-fw fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => 'return confirm("Are you sure you want to delete this emergency fund record")']) !!}
@@ -11,8 +12,6 @@
       @else
         <a href="{{ route('emergency_fund.create', [$client->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Add Emergency Fund"><i class="fa fa-fw fa-plus"></i></a>
       @endif
-    @else
-      <a href="{{ route('emergency_fund.pdf', [$client->id, $client->emergency_fund->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Print to PDF"><i class="fa fa-fw fa-print"></i></a>
     @endif
   </div>
   <div class="card-body collapse" id="emergencyFundCard">
