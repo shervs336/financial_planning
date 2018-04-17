@@ -7,6 +7,7 @@ use App\Education;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
+use PDF;
 
 class EducationController extends Controller
 {
@@ -189,5 +190,12 @@ class EducationController extends Controller
       flash()->success("Education payment successfully updated");
 
       return redirect(route('clients.dashboard', $education->user_id));
+    }
+
+    public function pdf(User $client, Education $education, Request $request)
+    {
+      $pdf = PDF::loadView('education.pdf', compact('client', 'education'));
+      return $pdf->stream();
+      //return $pdf->download('education-summary.pdf');
     }
 }

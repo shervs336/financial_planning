@@ -11,6 +11,8 @@
       @else
         <a href="{{ route('retirement.create', [$client->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Add Retirement"><i class="fa fa-fw fa-plus"></i></a>
       @endif
+    @else
+      <a href="{{ route('retirement.pdf', [$client->id, $client->retirement->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Print to PDF"><i class="fa fa-fw fa-print"></i></a>
     @endif
   </div>
   <div class="card-body collapse" id="retirementCard">

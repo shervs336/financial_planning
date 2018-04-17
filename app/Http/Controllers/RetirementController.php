@@ -7,6 +7,7 @@ use App\Retirement;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
+use PDF;
 
 class RetirementController extends Controller
 {
@@ -185,5 +186,12 @@ class RetirementController extends Controller
       flash()->success("Retirement payment successfully updated");
 
       return redirect(route('clients.dashboard', $retirement->user_id));
+    }
+
+    public function pdf(User $client, Retirement $retirement, Request $request)
+    {
+      $pdf = PDF::loadView('retirement.pdf', compact('client', 'retirement'));
+      return $pdf->stream();
+      //return $pdf->download('education-summary.pdf');
     }
 }

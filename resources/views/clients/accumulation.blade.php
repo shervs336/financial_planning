@@ -11,6 +11,8 @@
       @else
         <a href="{{ route('accumulation.create', [$client->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Add Accumulation"><i class="fa fa-fw fa-plus"></i></a>
       @endif
+    @else
+      <a href="{{ route('accumulation.pdf', [$client->id, $client->accumulation->id]) }}" class="btn btn-warning btn-sm float-right" data-toggle="tooltip" title="Print to PDF"><i class="fa fa-fw fa-print"></i></a>
     @endif
   </div>
   <div class="card-body collapse" id="accumulationCard">

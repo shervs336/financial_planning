@@ -7,6 +7,7 @@ use App\EmergencyFund;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
+use PDF;
 
 class EmergencyFundController extends Controller
 {
@@ -183,5 +184,12 @@ class EmergencyFundController extends Controller
       flash()->success("Emergency fund payment successfully updated");
 
       return redirect(route('clients.dashboard', $emergency_fund->user_id));
+    }
+
+    public function pdf(User $client, EmergencyFund $emergency_fund, Request $request)
+    {
+      $pdf = PDF::loadView('emergency_fund.pdf', compact('client', 'emergency_fund'));
+      return $pdf->stream();
+      //return $pdf->download('education-summary.pdf');
     }
 }

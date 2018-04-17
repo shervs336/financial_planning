@@ -7,6 +7,7 @@ use App\Accumulation;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
+use PDF;
 
 class AccumulationController extends Controller
 {
@@ -195,5 +196,12 @@ class AccumulationController extends Controller
       flash()->success("Accumulation payment successfully updated");
 
       return redirect(route('clients.dashboard', $accumulation->user_id));
+    }
+
+    public function pdf(User $client, Accumulation $retirement, Request $request)
+    {
+      $pdf = PDF::loadView('accumulation.pdf', compact('client', 'accumulation'));
+      return $pdf->stream();
+      //return $pdf->download('education-summary.pdf');
     }
 }
