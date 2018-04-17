@@ -27,9 +27,20 @@ Route::resource('/clients', 'ClientsController');
 Route::get('/clients/{client}/dashboard', 'ClientsController@dashboard')->name('clients.dashboard');
 
 Route::resource('/clients/{client}/retirement', 'RetirementController');
-Route::resource('/clients/{client}/education', 'EducationController');
-Route::resource('/clients/{client}/accumulation', 'AccumulationController');
-Route::resource('/clients/{client}/emergency_fund', 'EmergencyFundController');
-Route::get('/logs', 'ActivityLogController@index')->name('logs.index');
+Route::get('/clients/{client}/retirement/{retirement}/payment', 'RetirementController@payment')->name('retirement.payment');
+Route::post('/clients/{client}/retirement/{retirement}/payment', 'RetirementController@makePayment')->name('retirement.makePayment');
 
+Route::resource('/clients/{client}/education', 'EducationController');
+Route::get('/clients/{client}/education/{education}/payment', 'EducationController@payment')->name('education.payment');
+Route::post('/clients/{client}/education/{education}/payment', 'EducationController@makePayment')->name('education.makePayment');
+
+Route::resource('/clients/{client}/accumulation', 'AccumulationController');
+Route::get('/clients/{client}/accumulation/{accumulation}/payment', 'AccumulationController@payment')->name('accumulation.payment');
+Route::post('/clients/{client}/accumulation/{accumulation}/payment', 'AccumulationController@makePayment')->name('accumulation.makePayment');
+
+Route::resource('/clients/{client}/emergency_fund', 'EmergencyFundController');
+Route::get('/clients/{client}/emergency_fund/{emergency_fund}/payment', 'EmergencyFundController@payment')->name('emergency_fund.payment');
+Route::post('/clients/{client}/emergency_fund/{emergency_fund}/payment', 'EmergencyFundController@makePayment')->name('emergency_fund.makePayment');
+
+Route::get('/logs', 'ActivityLogController@index')->name('logs.index');
 Route::resource('/users', 'UsersController');

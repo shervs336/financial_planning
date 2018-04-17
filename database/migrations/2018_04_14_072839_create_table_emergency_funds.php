@@ -20,6 +20,7 @@ class CreateTableEmergencyFunds extends Migration
           $table->decimal('monthly_income', 20, 2);
           $table->decimal('advisable_fund', 20, 2);
           $table->decimal('allotment_of_income', 20, 2);
+          $table->longtext('payment')->nullable();
           $table->timestamps();
         });
     }

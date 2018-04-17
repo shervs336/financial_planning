@@ -161,4 +161,33 @@ class EducationController extends Controller
 
         return redirect(route('clients.dashboard', $client->id));
     }
+
+    public function payment(User $client, Education $education)
+    {
+        return view('education.payment', compact('client', 'education'));
+    }
+
+    public function makePayment(User $client, Education $education, Request $request)
+    {
+      if(!$request->payment)
+      {
+        flash()->error("No education payment input found");
+
+        return redirect(route('education.payment', [$client->id, $education->id]));
+      }
+
+      $data = $request->input();
+      $data['payment'] = json_encode($request->payment);
+
+      $this->log([
+        'user_id' => Auth::user()->id,
+        'log' => 'Make Payment Education - '.$client->firstname.' '.$client->lastname.' successfully saved.'
+      ]);
+
+      $education->update($data);
+
+      flash()->success("Education payment successfully updated");
+
+      return redirect(route('clients.dashboard', $education->user_id));
+    }
 }

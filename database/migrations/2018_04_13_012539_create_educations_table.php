@@ -23,6 +23,7 @@ class CreateEducationsTable extends Migration
             $table->integer('years_in_college');
             $table->decimal('assumed_annual_increase_tuition_fee', 20,2);
             $table->decimal('future_annual_increase_tuition_fee', 20,2);
+            $table->longtext('payment')->nullable();
             $table->timestamps();
         });
     }

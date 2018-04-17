@@ -157,4 +157,33 @@ class RetirementController extends Controller
 
         return redirect(route('clients.dashboard', $client->id));
     }
+
+    public function payment(User $client, Retirement $retirement)
+    {
+        return view('retirement.payment', compact('client', 'retirement'));
+    }
+
+    public function makePayment(User $client, Retirement $retirement, Request $request)
+    {
+      if(!$request->payment)
+      {
+        flash()->error("No retirement payment input found");
+
+        return redirect(route('retirement.payment', [$client->id, $retirement->id]));
+      }
+
+      $data = $request->input();
+      $data['payment'] = json_encode($request->payment);
+
+      $this->log([
+        'user_id' => Auth::user()->id,
+        'log' => 'Make Payment Retirement - '.$client->firstname.' '.$client->lastname.' successfully saved.'
+      ]);
+
+      $retirement->update($data);
+
+      flash()->success("Retirement payment successfully updated");
+
+      return redirect(route('clients.dashboard', $retirement->user_id));
+    }
 }

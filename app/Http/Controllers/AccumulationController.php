@@ -167,4 +167,33 @@ class AccumulationController extends Controller
 
         return redirect(route('clients.dashboard', $client->id));
     }
+
+    public function payment(User $client, Accumulation $accumulation)
+    {
+        return view('accumulation.payment', compact('client', 'accumulation'));
+    }
+
+    public function makePayment(User $client, Accumulation $accumulation, Request $request)
+    {
+      if(!$request->payment)
+      {
+        flash()->error("No accumulation payment input found");
+
+        return redirect(route('accumulation.payment', [$client->id, $accumulation->id]));
+      }
+
+      $data = $request->input();
+      $data['payment'] = json_encode($request->payment);
+
+      $this->log([
+        'user_id' => Auth::user()->id,
+        'log' => 'Make Payment Accumulation - '.$client->firstname.' '.$client->lastname.' successfully saved.'
+      ]);
+
+      $accumulation->update($data);
+
+      flash()->success("Accumulation payment successfully updated");
+
+      return redirect(route('clients.dashboard', $accumulation->user_id));
+    }
 }

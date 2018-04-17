@@ -12,6 +12,7 @@
           <a href="#" data-toggle="collapse" data-target="#educationCard{{$key+1}}">Record #{{$key+1}} </a>
           @if(Auth::user()->role == "admin")
             {!! Form::open(['route' => ['education.destroy', $client->id, $education->id], 'method' => 'delete', 'class'=>'form-inline float-right']) !!}
+            <a href="{{ route('education.payment', [$client->id, $education->id]) }}" class="btn btn-info btn-sm mr-1" data-toggle="tooltip" title="Edit Payment"><i class="fa fa-fw fa-money"></i></a>
             <a href="{{ route('education.edit', [$client->id, $education->id]) }}" class="btn btn-warning btn-sm mr-1" data-toggle="tooltip" title="Edit Education"><i class="fa fa-fw fa-pencil"></i></a>
             {!! Form::button('<i class="fa fa-fw fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => 'return confirm("Are you sure you want to delete this education")']) !!}
             {!! Form::close() !!}
@@ -50,23 +51,62 @@
 
           <hr />
 
-          <div class="table-responsive">
-            <div class="mb-3">Future Value of Tuition</div>
-            <table class="table table-bordered table-condensde">
-              <tbody>
-                @for($i=1; $i<=$education->years_in_college; $i++)
-                <tr>
-                  <td>Year {{ $i }}</td>
-                  @if($i == 1)
-                    <td>₱ {{ number_format($future_value_tuition = $education->current_tuition*pow((1+($education->assumed_annual_increase_tuition_fee/100)),$years_to_save), 2)}}</td>
-                  @else
-                    <td>₱ {{ number_format($future_value_tuition = $future_value_tuition*(1+($education->future_annual_increase_tuition_fee/100)), 2)}}</td>
-                  @endif
-                </tr>
-                @endfor
-              </tbody>
-            </table>
+          <div class="card mb-1">
+            <div class="card-header">
+              <a href="#" data-toggle="collapse" data-target="#educationFutureValueCard{{$key+1}}">Future Value of Tuition</a>
+            </div>
+            <div class="card-body collapse" id="educationFutureValueCard{{$key+1}}">
+              <div class="table-responsive">
+                <table class="table table-bordered table-condensde">
+                  <tbody>
+                    @for($i=1; $i<=$education->years_in_college; $i++)
+                    <tr>
+                      <td>Year {{ $i }}</td>
+                      @if($i == 1)
+                        <td>₱ {{ number_format($future_value_tuition = $education->current_tuition*pow((1+($education->assumed_annual_increase_tuition_fee/100)),$years_to_save), 2)}}</td>
+                      @else
+                        <td>₱ {{ number_format($future_value_tuition = $future_value_tuition*(1+($education->future_annual_increase_tuition_fee/100)), 2)}}</td>
+                      @endif
+                    </tr>
+                    @endfor
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
+
+          <div class="card mb-4">
+            <div class="card-header">
+              <a href="#" data-toggle="collapse" data-target="#educationPayment{{$key+1}}">Payments</a>
+            </div>
+            <div class="card-body collapse" id="educationPayment{{$key+1}}">
+              <div class="table-responsive">
+                <table class="table table-bordered table-condensed">
+                  <thead>
+                    <tr>
+                      <th>Month</th>
+                      <th>Payment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @php
+                      $months_to_save = ($education->age_to_enter_college - $education->current_child_age) * 12;
+                      $payment = json_decode($education->payment);
+                    @endphp
+                    @for($i = 1; $i <= $months_to_save; $i++)
+                      <tr>
+                        <td>{{ $i }}</td>
+                        <td>
+                          {!! isset($payment[($i - 1)]) ? "<i class='fa fa-fw fa-2x fa-check-circle text-success'></i>" : "-" !!}
+                        </td>
+                      </tr>
+                    @endfor
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     @empty

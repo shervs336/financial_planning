@@ -54,6 +54,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
+                                <a href="#" class="btn btn-link" data-toggle="modal" data-target="#termsModal">Terms and Conditions</a>
                             </div>
                         </div>
                     </form>

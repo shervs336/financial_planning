@@ -41,6 +41,21 @@
           </div>
         </main>
 
+        <footer class="sticky-footer">
+          <div class="container">
+            <div class="text-left">
+              <small>Copyright © Financial Planning 2018 |</small>
+              <small class="float-center"><a href="#" data-toggle="modal" data-target="#termsModal">Terms and Conditions</a></small>
+              <span class="float-right">
+                <small><i class="fa fa-fw fa-phone"></i> (047)251-1094</small>
+                <small><i class="fa fa-fw fa-envelope"></i> expressonline@bpi.com.ph</small>
+              </span>
+            </div>
+          </div>
+        </footer>
+
+       @include('layouts.terms')
+
     <script src="{{ asset('startbootstrap/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('bower_components/popper.js/dist/umd/popper.min.js')}}"></script>
     <script src="{{ asset('startbootstrap/vendor/bootstrap/js/bootstrap.min.js') }}"></script>

@@ -21,6 +21,7 @@ class CreateRetirementsTable extends Migration
             $table->decimal('inflation_rate', 20, 2);
             $table->integer('current_age');
             $table->integer('retirement_age');
+            $table->longtext('payment')->nullable();
             $table->timestamps();
         });
     }

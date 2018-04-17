@@ -26,6 +26,7 @@ class CreateAccumulationsTable extends Migration
             $table->integer('years_to_accumulate_fund');
             $table->decimal('starting_amount_monthly', 20, 2);
             $table->decimal('start_up_fund', 20, 2);
+            $table->longtext('payment')->nullable();
             $table->timestamps();
         });
     }

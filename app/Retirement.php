@@ -12,6 +12,8 @@ class Retirement extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
+    protected $casts = ['payment' => 'array'];
+
     public function client()
     {
       return $this->belongsTo('App\User');

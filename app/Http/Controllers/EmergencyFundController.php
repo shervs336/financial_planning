@@ -155,4 +155,33 @@ class EmergencyFundController extends Controller
 
         return redirect(route('clients.dashboard', $client->id));
     }
+
+    public function payment(User $client, EmergencyFund $emergency_fund)
+    {
+        return view('emergency_fund.payment', compact('client', 'emergency_fund'));
+    }
+
+    public function makePayment(User $client, EmergencyFund $emergency_fund, Request $request)
+    {
+      if(!$request->payment)
+      {
+        flash()->error("No emergency fund payment input found");
+
+        return redirect(route('emergency_fund.payment', [$client->id, $emergency_fund->id]));
+      }
+
+      $data = $request->input();
+      $data['payment'] = json_encode($request->payment);
+
+      $this->log([
+        'user_id' => Auth::user()->id,
+        'log' => 'Make Payment Emergency Fund - '.$client->firstname.' '.$client->lastname.' successfully saved.'
+      ]);
+
+      $emergency_fund->update($data);
+
+      flash()->success("Emergency fund payment successfully updated");
+
+      return redirect(route('clients.dashboard', $emergency_fund->user_id));
+    }
 }

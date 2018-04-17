@@ -4,6 +4,7 @@
     @if(Auth::user()->role == "admin")
       @if($client->retirement)
         {!! Form::open(['route' => ['retirement.destroy', $client->id, $client->retirement->id], 'method' => 'delete', 'class'=>'form-inline float-right']) !!}
+        <a href="{{ route('retirement.payment', [$client->id, $client->retirement->id]) }}" class="btn btn-info btn-sm mr-1" data-toggle="tooltip" title="Edit Payment"><i class="fa fa-fw fa-money"></i></a>
         <a href="{{ route('retirement.edit', [$client->id, $client->retirement->id]) }}" class="btn btn-warning btn-sm mr-1" data-toggle="tooltip" title="Edit Retirement"><i class="fa fa-fw fa-pencil"></i></a>
         {!! Form::button('<i class="fa fa-fw fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => 'return confirm("Are you sure you want to delete this retirement record")']) !!}
         {!! Form::close() !!}
@@ -44,6 +45,40 @@
         </div>
         <div class="col-md-6">
           <span class="text-primary">Total Retirement Fund Estimate:</span> ₱ {{ number_format($annual_value/0.1, 2) }}
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-header">
+          <a href="#" data-toggle="collapse" data-target="#retirementPaymentCard">Payments</a>
+        </div>
+        <div class="card-body collapse" id="retirementPaymentCard">
+          @if($client->retirement)
+            <div class="table-responsive">
+              <table class="table table-bordered table-condensed">
+                <thead>
+                  <tr>
+                    <th>Month</th>
+                    <th>Payment</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @php
+                    $months_to_save = ($client->retirement->retirement_age - $client->retirement->current_age) * 12;
+                    $payment = json_decode($client->retirement->payment);
+                  @endphp
+                  @for($i = 1; $i <= $months_to_save; $i++)
+                    <tr>
+                      <td>{{ $i }}</td>
+                      <td>
+                        {!! isset($payment[($i - 1)]) ? "<i class='fa fa-fw fa-2x fa-check-circle text-success'></i>" : "-" !!}
+                      </td>
+                    </tr>
+                  @endfor
+                </tbody>
+              </table>
+            </div>
+          @endif
         </div>
       </div>
     @else
